@@ -21,6 +21,8 @@ const webpack = require('webpack');
 
 const { isDevelopment, isProduction } = require('webpack-mode');
 
+const config = require('./config');
+
 function _path() {
     const args = Array.prototype.slice.call(arguments);
     args.unshift(__dirname);
@@ -36,19 +38,38 @@ function recursiveIssuer(m) {
     }
 }
 
-const publicPath = 'http://127.0.0.1:8080/';
+const publicPath = '';
+// const publicPath = 'http://127.0.0.1:8080/';
 module.exports = {
     mode: 'development',
     // mode: 'none',
 
-    entry: {
-        // react: ['react','react-dom'],
-        home:       _path('./src/home/index.js'),
-        login:      _path('./src/login/index.js'),
-        register:   _path('./src/register/index.js'),
-        list:       _path('./src/list/index.js'),
-
-    },
+    // entry: {
+    //     // react: ['react','react-dom'],
+    //     // home:       _path('./src/home/index.js'),
+    //     // login:      _path('./src/login/index.js'),
+    //     // register:   _path('./src/register/index.js'),
+    //     // list:       _path('./src/list/index.js'),
+    //     // detail:     _path('./src/detail/index.js'),
+    //
+    // },
+    // entry: () => new Promise((resolve) => {
+    //     resolve(['./demo', './demo2']
+    // })),
+    // entry:(function () {
+    //     const entry = {};
+    //     config.pages.map(function (c) {
+    //         return c.entry;
+    //     })
+    // })(),
+    entry: () => new Promise( function (resolve) {
+        const entry = {};
+        config.pages.forEach(function (c) {
+            const m = require(c);
+            Object.assign(entry, m.entry);
+        });
+        resolve(entry);
+    }),
     output: {
         path: _path('dist'),
         filename: isProduction?'[name].[contenthash].bundle.js':'[name].bundle.js',
@@ -196,8 +217,7 @@ module.exports = {
             verbose: true,
         }),
         new MiniCssExtractPlugin({
-
-            filename: isProduction?'[name].[contenthash].css':'[name].css',
+            filename: isProduction?'[name].[contenthash].bundle.css':'[name].bundle.css',
             chunkFilename: isProduction?'[id].[name].[contenthash].chunk.css':'[id].[name].chunk.css',
             ignoreOrder: false
         }),
