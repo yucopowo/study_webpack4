@@ -16,6 +16,29 @@ export default class App extends Component {
         }
     }
 
+    componentDidMount() {
+        console.log(1111);
+    }
+
+    render() {
+        return <div>
+            <p>=====</p>
+            <p>title</p>
+            <p>
+                <label htmlFor="celsius">celsius</label>
+                <input name="celsius" type="text"
+                       value={this.state.celsius}
+                       onChange={this.onCelsiusChange.bind(this)}/>
+            </p>
+            <p>
+                <label htmlFor="fahrenheit">fahrenheit</label>
+                <input name="fahrenheit" type="text"
+                       value={this.state.fahrenheit}
+                       onChange={this.onFahrenheitChange.bind(this)}/>
+            </p>
+        </div>;
+    }
+
     setEmpty() {
         this.setState({
             celsius: '',
@@ -65,21 +88,4 @@ export default class App extends Component {
         });
     }
 
-    render() {
-        return <div>
-            <p>title</p>
-            <p>
-                <label htmlFor="celsius">celsius</label>
-                <input name="celsius" type="text"
-                       value={this.state.celsius}
-                       onChange={this.onCelsiusChange.bind(this)}/>
-            </p>
-            <p>
-                <label htmlFor="fahrenheit">fahrenheit</label>
-                <input name="fahrenheit" type="text"
-                       value={this.state.fahrenheit}
-                       onChange={this.onFahrenheitChange.bind(this)}/>
-            </p>
-        </div>;
-    }
 }

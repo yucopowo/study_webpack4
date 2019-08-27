@@ -6,11 +6,25 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const webpack = require('webpack');
+// const helpers = require('handlebars-helpers')();
+
+// (function () {
+//     // var Handlebars = require("handlebars");
+//     // var HandlebarsHelpers = require('handlebars-helpers');
+//     // HandlebarsHelpers.register(Handlebars ,{});
+//
+//     var handlebars = require('handlebars');
+//     var helpers = require('handlebars-helpers')({
+//         handlebars: handlebars
+//     });
+// })();
 
 const { isDevelopment, isProduction } = require('webpack-mode');
 
-function _path(p) {
-    return path.resolve(__dirname, p);
+function _path() {
+    const args = Array.prototype.slice.call(arguments);
+    args.unshift(__dirname);
+    return path.resolve.apply(null, args);
 }
 function recursiveIssuer(m) {
     if (m.issuer) {
@@ -29,10 +43,10 @@ module.exports = {
 
     entry: {
         // react: ['react','react-dom'],
-
+        home:       _path('./src/home/index.js'),
         login:      _path('./src/login/index.js'),
         register:   _path('./src/register/index.js'),
-        list:       _path('./src/list/index.js')
+        list:       _path('./src/list/index.js'),
 
     },
     output: {
@@ -49,6 +63,29 @@ module.exports = {
     module: {
         rules: [
             {
+                test: /\.(hbs|handlebars)$/,
+                loader: "handlebars-loader",
+                options: {
+                    // precompileOptions: {
+                    //     knownHelpersOnly: false,
+                    // },
+                    partialDirs: [
+                        _path('views', 'partials')
+                    ],
+                    helperDirs: [
+                        // path.resolve(__dirname, 'node_modules/handlebars-helpers/lib'),
+                        _path('views', 'helpers'),
+                    ],
+                    // helperResolver: function(helper, callback) {
+                    //     // loop through handlebarsHelpers and pass to callback
+                    //
+                    //     console.log(helper);
+                    //
+                    // }
+                }
+            },
+
+            {
                 test: /\.vue$/,
                 loader: 'vue-loader',
                 exclude: /node_modules/
@@ -64,12 +101,18 @@ module.exports = {
             {
                 test: /\.css$/,
                 use: [
-                    isDevelopment?'vue-style-loader':{
+                    {
                         loader: MiniCssExtractPlugin.loader,
                         options: {
-                            hmr: !isProduction,
+                            hmr: !isDevelopment,
                         },
                     },
+                    // isDevelopment?'vue-style-loader':{
+                    //     loader: MiniCssExtractPlugin.loader,
+                    //     options: {
+                    //         hmr: !isProduction,
+                    //     },
+                    // },
                     // isProduction?{
                     //     loader: MiniCssExtractPlugin.loader,
                     //     options: {
@@ -83,12 +126,19 @@ module.exports = {
             {
                 test: /\.s[ac]ss$/i,
                 use: [
-                    isDevelopment?'vue-style-loader':{
+                    {
                         loader: MiniCssExtractPlugin.loader,
                         options: {
-                            hmr: !isProduction,
+                            hmr: !isDevelopment,
                         },
                     },
+
+                    // isDevelopment?'vue-style-loader':{
+                    //     loader: MiniCssExtractPlugin.loader,
+                    //     options: {
+                    //         hmr: !isProduction,
+                    //     },
+                    // },
                     // isProduction?{
                     //     loader: MiniCssExtractPlugin.loader,
                     //     options: {
@@ -138,8 +188,10 @@ module.exports = {
     //     extensions: ['*', '.js', '.vue']
     // },
     plugins: [
-        new VueLoaderPlugin(),
+
         // new BundleAnalyzerPlugin(),
+
+        new VueLoaderPlugin(),
         new CleanWebpackPlugin({
             verbose: true,
         }),
@@ -149,52 +201,82 @@ module.exports = {
             chunkFilename: isProduction?'[id].[name].[contenthash].chunk.css':'[id].[name].chunk.css',
             ignoreOrder: false
         }),
-        new HtmlWebpackPlugin({
-            inject: true,
-            title: 'index',
-            filename: "index.html",
-            template: _path('./index.html'),
-            chunks: []
-        }),
-        new HtmlWebpackPlugin({
-            inject: true,
-            title: 'login',
-            filename: "login.html",
-            template: _path('./src/login/index.html'),
-            chunks: ["login"],
-        }),
-        new HtmlWebpackPlugin({
-            inject: true,
-            title: 'register',
-            filename: "register.html",
-            template: _path('./src/register/index.html'),
-            // chunks: ["register"],
-        }),
-        new HtmlWebpackPlugin({
-            title: 'list',
-            filename: "list.html",
-            template: _path('./src/list/index.html'),
-            chunks: ["list"],
 
-        }),
+
+
+
+
+
+
+
         new ManifestPlugin({
             fileName: 'manifest.json',
             // fileName: 'asset-manifest.json',
             publicPath: publicPath,
         }),
 
-        new webpack.DllReferencePlugin({
-            // context: __dirname,
-            manifest: require("./cache/vue.dll.manifest.json")
-        }),
-        new webpack.DllReferencePlugin({
-            // context: __dirname,
-            manifest: require("./cache/lodash.dll.manifest.json")
-        }),
-        new webpack.DllReferencePlugin({
-            // context: __dirname,
-            manifest: require("./cache/react.dll.manifest.json")
-        })
+
+        // new webpack.DllReferencePlugin({
+        //     // context: __dirname,
+        //     context: path.resolve(__dirname, '.'),
+        //     manifest: require("./cache/lodash.dll.manifest.json")
+        // }),
+        // new webpack.DllReferencePlugin({
+        //     // context: __dirname,
+        //     context: path.resolve(__dirname, '.'),
+        //     manifest: require("./cache/react.dll.manifest.json")
+        // }),
+        // new webpack.DllReferencePlugin({
+        //     // context: __dirname,
+        //     context: path.resolve(__dirname, '.'),
+        //     manifest: require("./cache/vue.dll.manifest.json")
+        // }),
+
+
+
+
+
+        // new HtmlWebpackPlugin({
+        //     inject: true,
+        //     title: 'index',
+        //     filename: "index.html",
+        //     template: _path('./index.html'),
+        //     chunks: []
+        // }),
+        // new HtmlWebpackPlugin({
+        //     inject: true,
+        //     title: 'login',
+        //     filename: "login.html",
+        //     template: _path('./src/login/index.html'),
+        //     chunks: ["login"],
+        // }),
+        // new HtmlWebpackPlugin({
+        //     inject: true,
+        //     title: 'register',
+        //     filename: "register.html",
+        //     template: _path('./src/register/index.html'),
+        //     chunks: ["register"],
+        // }),
+        // new HtmlWebpackPlugin({
+        //     title: 'list',
+        //     filename: "list.html",
+        //     template: _path('./src/list/index.html'),
+        //     chunks: ["list"],
+        // }),
+        // new HtmlWebpackPlugin({
+        //     inject: true,
+        //     title: 'home',
+        //     filename: "home.html",
+        //     template: _path('./src/home/index.handlebars'),
+        //     chunks: ["home"],
+        //     templateParameters: function () {
+        //         return {
+        //             'foo': {test:'bar'}
+        //         };
+        //     }
+        // }),
+
+
     ],
 
     // optimization: {

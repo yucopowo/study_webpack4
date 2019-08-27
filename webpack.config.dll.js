@@ -50,7 +50,7 @@ module.exports = {
                     {
                         loader: "url-loader",
                         options: {
-                            name: isProduction?"[name]-[hash].dll.[ext]":'[name].dll.[ext]',
+                            name: isProduction?"[name].dll.[hash].[ext]":'[name].dll.[ext]',
                             limit: 5000, // fonts file size <= 5KB, use 'base64'; else, output svg file
                             publicPath: "fonts/",
                             outputPath: "fonts/"
@@ -71,10 +71,11 @@ module.exports = {
             // name: "[name]",
             name: '_dll_[name]',
             path: path.join(__dirname, "./cache/", "[name].dll.manifest.json"),
-            // context: __dirname
+            // context: __dirname,
+            context: path.resolve(__dirname, '.'),
         }),
         new ManifestPlugin({
-            fileName: 'dll-manifest.json',
+            fileName: 'dll.manifest.json',
             // publicPath: publicPath,
         }),
         new MiniCssExtractPlugin({

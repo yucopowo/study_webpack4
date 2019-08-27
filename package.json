@@ -7,7 +7,11 @@
     "babel-plugin-component": "^1.1.1",
     "clean-webpack-plugin": "^3.0.0",
     "css-loader": "^3.2.0",
+    "express-handlebars": "^3.1.0",
     "file-loader": "^4.2.0",
+    "handlebars": "^4.1.2",
+    "handlebars-helpers": "^0.10.0",
+    "handlebars-loader": "^1.7.1",
     "html-webpack-plugin": "^3.2.0",
     "inline-chunk-manifest-html-webpack-plugin": "^2.0.0",
     "mini-css-extract-plugin": "^0.8.0",
@@ -26,7 +30,7 @@
   },
   "scripts": {
     "dll": "webpack --mode=none --config=webpack.config.dll.js",
-    "dev": "webpack-dev-server",
+    "dev": "webpack-dev-server --progress --mode=none",
     "build1": "webpack --mode=development --config webpack.config.js",
     "build": "webpack --mode=none --config webpack.config.js",
     "production": "webpack --mode=production --config webpack.config.js"
