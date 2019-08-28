@@ -1,4 +1,3 @@
-const path = require('path');
 module.exports = {
     title: '自定义简历模版',
     url: '/detail',
@@ -43,9 +42,5 @@ module.exports = {
             getGuidedEditCompleteness: '/custom_resume/getGuidedEditCompleteness',
 
         },
-    },
-    router: require('./router'),
-    entry: {
-        detail: path.resolve(__dirname, '../../../src', 'detail', 'index.js')
     }
 };

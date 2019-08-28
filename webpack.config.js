@@ -6,21 +6,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const webpack = require('webpack');
-// const helpers = require('handlebars-helpers')();
-
-// (function () {
-//     // var Handlebars = require("handlebars");
-//     // var HandlebarsHelpers = require('handlebars-helpers');
-//     // HandlebarsHelpers.register(Handlebars ,{});
-//
-//     var handlebars = require('handlebars');
-//     var helpers = require('handlebars-helpers')({
-//         handlebars: handlebars
-//     });
-// })();
-
 const { isDevelopment, isProduction } = require('webpack-mode');
-
 const config = require('./config');
 
 function _path() {
@@ -42,6 +28,12 @@ const publicPath = '';
 // const publicPath = 'http://127.0.0.1:8080/';
 module.exports = {
     mode: 'development',
+
+    entry: {
+        detail: _path('./src/detail/index.js'),
+    },
+
+
     // mode: 'none',
 
     // entry: {
@@ -62,14 +54,20 @@ module.exports = {
     //         return c.entry;
     //     })
     // })(),
-    entry: () => new Promise( function (resolve) {
-        const entry = {};
-        config.pages.forEach(function (c) {
-            const m = require(c);
-            Object.assign(entry, m.entry);
-        });
-        resolve(entry);
-    }),
+    // entry: () => new Promise( function (resolve) {
+    //     const entry = {};
+    //     console.log('entry=============');
+    //
+    //
+    //     config.pages.forEach(function (c) {
+    //         const m = require(c);
+    //         Object.assign(entry, m.entry);
+    //     });
+    //
+    //     console.log(entry);
+    //
+    //     resolve(entry);
+    // }),
     output: {
         path: _path('dist'),
         filename: isProduction?'[name].[contenthash].bundle.js':'[name].bundle.js',
