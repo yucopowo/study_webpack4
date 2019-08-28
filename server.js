@@ -32,9 +32,9 @@ Object.keys(config.routes).forEach(function (url) {
 // }
 
 module.exports = {
-    hot: false,
-    hotOnly: false,
-    inline: false,
+    // hot: false,
+    // hotOnly: false,
+    // inline: false,
     // lazy: true,
     contentBase: ['./cache','./dist','./public'],
     // filename: 'list.bundle.js',

@@ -23,7 +23,7 @@
     export default {
         data () {
             return {
-                msg: 'Hello world!=789=='
+                msg: 'Hello world!=789==123456'
             }
         }
     }
