@@ -17,7 +17,10 @@ function reload(modulepath) {
     return require(modulepath);
 }
 
-
+config.pages = config.pages.map((p)=>require(p));
+Object.keys(config.routes).forEach(function (url) {
+    config.routes[url]= require(config.routes[url]);
+});
 
 // async function requestManifest() {
 //     if(Object.keys(manifest).length>0) {
@@ -33,7 +36,7 @@ module.exports = {
     hotOnly: false,
     inline: false,
     // lazy: true,
-    contentBase: ['./cache','./dist'],
+    contentBase: ['./cache','./dist','./public'],
     // filename: 'list.bundle.js',
     before: function(app, server) {
         const manifest = {};
@@ -64,13 +67,13 @@ module.exports = {
         // });
 
         app.get('/', function (req, res) {
-            res.render('index/index');
+            res.render('index/index', {
+                pages: config.pages
+            });
         });
 
 
-        config.pages.forEach(function (p) {
-            const page = require(p);
-
+        config.pages.forEach(function (page) {
             app.get(page.url, async function (req, res) {
                 res.render(page.template, {
                     manifest: manifest,
@@ -86,7 +89,7 @@ module.exports = {
         });
 
         Object.keys(config.routes).forEach(function (url) {
-            app.use(url, require(config.routes[url]));
+            app.use(url, config.routes[url]);
         });
 
 

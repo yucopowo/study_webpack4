@@ -3,6 +3,9 @@
     "@babel/core": "^7.5.5",
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@babel/preset-react": "^7.0.0",
+    "@types/jquery": "^3.3.31",
+    "@types/react": "^16.9.2",
+    "@types/react-dom": "^16.9.0",
     "babel-loader": "^8.0.6",
     "babel-plugin-component": "^1.1.1",
     "clean-webpack-plugin": "^3.0.0",
@@ -18,6 +21,8 @@
     "node-sass": "^4.12.0",
     "sass-loader": "^7.3.1",
     "style-loader": "^1.0.0",
+    "ts-loader": "^6.0.4",
+    "typescript": "^3.5.3",
     "url-loader": "^2.1.0",
     "vue-loader": "^15.7.1",
     "vue-template-compiler": "^2.6.10",
@@ -37,12 +42,21 @@
   },
   "dependencies": {
     "axios": "^0.19.0",
+    "bulma": "^0.7.5",
+    "dayjs": "^1.8.16",
+    "echarts": "^4.2.1",
     "element-ui": "^2.11.1",
+    "fullpage.js": "^3.0.7",
+    "jquery": "^3.4.1",
     "lodash": "^4.17.15",
+    "pdfjs-dist": "^2.1.266",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-redux": "^7.1.0",
     "redux": "^4.0.4",
-    "vue": "^2.6.10"
+    "video.js": "^7.6.0",
+    "vue": "^2.6.10",
+    "vue-router": "^3.1.2",
+    "vuex": "^3.1.1"
   }
 }

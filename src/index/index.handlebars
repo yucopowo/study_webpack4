@@ -1,17 +1,11 @@
 <ul>
+
     <li>
-        <a href="/home">home</a>
+        <a href="manifest.json" target="_blank">manifest</a>
     </li>
-    <li>
-        <a href="/list.html">list</a>
-    </li>
-    <li>
-        <a href="/login.html">login</a>
-    </li>
-    <li>
-        <a href="/register.html">register</a>
-    </li>
-    <li>
-        <a href="/detail">detail</a>
-    </li>
+    {{#pages}}
+        <li>
+            <a href="{{url}}" target="_blank">{{title}}</a>
+        </li>
+    {{/pages}}
 </ul>

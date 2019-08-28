@@ -29,9 +29,19 @@ const publicPath = '';
 module.exports = {
     mode: 'development',
 
-    entry: {
-        detail: _path('./src/detail/index.js'),
-    },
+    entry: config.entry,
+    // entry: {
+    //     home:       _path('./src/home/index.js'),
+    //     login:      _path('./src/login/index.js'),
+    //     register:   _path('./src/register/index.js'),
+    //     list:       _path('./src/list/index.js'),
+    //     detail:     _path('./src/detail/index.js'),
+    //     about:      _path('./src/about/index.tsx'),
+    //     book:       _path('./src/book/index.js'),
+    //     introduce:  _path('./src/introduce/index.js'),
+    //     pdf:        _path('./src/pdf/index.js'),
+    //     pdf_worker:'pdfjs-dist/build/pdf.worker.entry',
+    // },
 
 
     // mode: 'none',
@@ -81,6 +91,12 @@ module.exports = {
     devServer: require('./server'),
     module: {
         rules: [
+            {
+                test: /\.tsx?$/,
+                use: 'ts-loader',
+                exclude: /node_modules/
+            },
+
             {
                 test: /\.(hbs|handlebars)$/,
                 loader: "handlebars-loader",
@@ -203,9 +219,10 @@ module.exports = {
     //     'react': 'React',
     //     'lodash': '_',
     // },
-    // resolve: {
-    //     extensions: ['*', '.js', '.vue']
-    // },
+
+    resolve: {
+        extensions: ['*', '.js', '.vue', '.tsx', '.ts']
+    },
     plugins: [
 
         // new BundleAnalyzerPlugin(),
