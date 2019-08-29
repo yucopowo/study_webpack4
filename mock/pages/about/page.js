@@ -1,7 +1,7 @@
 module.exports = {
     title: 'about',
     url: '/about',
-    template: 'about/index',
+    template: 'about',
     data: {
 
     }

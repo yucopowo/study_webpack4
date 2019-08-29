@@ -4,6 +4,9 @@
         <header class="layout-header">Header</header>
         <main class="layout-main">
 
+            <div>
+                <img src="@images/made-with-bulma.png" alt="">
+            </div>
             <div class="example">
                 <p>{{ msg }}</p>
             </div>

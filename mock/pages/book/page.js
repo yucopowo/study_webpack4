@@ -1,7 +1,7 @@
 module.exports = {
     title: 'book',
     url: '/book',
-    template: 'book/index',
+    template: 'book',
     data: {
 
     }

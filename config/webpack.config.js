@@ -12,6 +12,8 @@ const config = require('../config.js');
 
 const isDevelopment = (process.env.NODE_ENV === 'development');
 const isProduction = (process.env.NODE_ENV === 'production');
+const cache = (process.env.cache === 'true');
+
 
 function base() {
     const args = Array.prototype.slice.call(arguments);
@@ -36,66 +38,12 @@ const publicPath = '';
 // const publicPath = 'http://127.0.0.1:8080/';
 module.exports = {
     mode: 'development',
-
     entry: config.entry,
-    // entry: {
-    //     home:       _path('./src/home/index.js'),
-    //     login:      _path('./src/login/index.js'),
-    //     register:   _path('./src/register/index.js'),
-    //     list:       _path('./src/list/index.js'),
-    //     detail:     _path('./src/detail/index.js'),
-    //     about:      _path('./src/about/index.tsx'),
-    //     book:       _path('./src/book/index.js'),
-    //     introduce:  _path('./src/introduce/index.js'),
-    //     pdf:        _path('./src/pdf/index.js'),
-    //     pdf_worker:'pdfjs-dist/build/pdf.worker.entry',
-    // },
-
-
-    // mode: 'none',
-
-    // entry: {
-    //     // react: ['react','react-dom'],
-    //     // home:       _path('./src/home/index.js'),
-    //     // login:      _path('./src/login/index.js'),
-    //     // register:   _path('./src/register/index.js'),
-    //     // list:       _path('./src/list/index.js'),
-    //     // detail:     _path('./src/detail/index.js'),
-    //
-    // },
-    // entry: () => new Promise((resolve) => {
-    //     resolve(['./demo', './demo2']
-    // })),
-    // entry:(function () {
-    //     const entry = {};
-    //     config.pages.map(function (c) {
-    //         return c.entry;
-    //     })
-    // })(),
-    // entry: () => new Promise( function (resolve) {
-    //     const entry = {};
-    //     console.log('entry=============');
-    //
-    //
-    //     config.pages.forEach(function (c) {
-    //         const m = require(c);
-    //         Object.assign(entry, m.entry);
-    //     });
-    //
-    //     console.log(entry);
-    //
-    //     resolve(entry);
-    // }),
     output: {
         path: base('dist'),
-        filename: isProduction?'[name].[contenthash].bundle.js':'[name].bundle.js',
+        filename: isProduction?'[name].[contenthash].js':'[name].js',
         chunkFilename: isProduction?'[name].[contenthash].chunk.js':'[name].chunk.js'
     },
-    // devtool: 'eval-source-map',
-    // devServer: {
-    //     lazy: true,
-    //     contentBase: './dist'
-    // },
     devServer: require('./server'),
     module: {
         noParse: [/.elm$/],
@@ -226,19 +174,22 @@ module.exports = {
                     {
                         loader: "url-loader",
                         options: {
-                            name: isProduction?"[name]-[hash].[ext]":'[name].[ext]',
+                            name: isProduction?'[contenthash].[ext]':'[path][name].[ext]',
+                            // name: isProduction?"[name].[hash].[ext]":'[name].[ext]',
                             limit: 5000, // fonts file size <= 5KB, use 'base64'; else, output svg file
-                            publicPath: "fonts/",
+                            // publicPath: "fonts/",
                             outputPath: "fonts/"
                         }
                     }
                 ]
             },
             {
-                test: /\.(png|jpg|gif)$/i,
+                test: /\.(png|jpe?g|gif)$/i,
                 loader: 'url-loader',
                 options: {
-                    limit:8192
+                    outputPath: 'images',
+                    limit: 8192,
+                    name: isProduction?'[contenthash].[ext]':'[path][name].[ext]'
                 }
             }
             // {
@@ -255,31 +206,39 @@ module.exports = {
     // },
 
     resolve: {
+        alias: {
+            '@images': base('assets/images')
+        },
         extensions: ['*', '.js', '.vue', '.tsx', '.ts', '.elm']
     },
     plugins: [
 
 
+        ...[].concat(cache?[
 
-        new HardSourceWebpackPlugin({
-            cacheDirectory: base('./.cache/[confighash]'),
-            info: {
-                // 'none' or 'test'.
-                mode: 'test',
-                // 'debug', 'log', 'info', 'warn', or 'error'.
-                level: 'debug',
-            },
-        }),
-        new HardSourceWebpackPlugin.ExcludeModulePlugin([
-            {
-                // HardSource works with mini-css-extract-plugin but due to how
-                // mini-css emits assets, assets are not emitted on repeated builds with
-                // mini-css and hard-source together. Ignoring the mini-css loader
-                // modules, but not the other css loader modules, excludes the modules
-                // that mini-css needs rebuilt to output assets every time.
-                test: /mini-css-extract-plugin[\\/]dist[\\/]loader/,
-            },
-        ]),
+            new HardSourceWebpackPlugin({
+                cacheDirectory: base('./.cache/[confighash]'),
+                info: {
+                    // 'none' or 'test'.
+                    mode: 'test',
+                    // 'debug', 'log', 'info', 'warn', or 'error'.
+                    level: 'debug',
+                },
+            }),
+            new HardSourceWebpackPlugin.ExcludeModulePlugin([
+                {
+                    // HardSource works with mini-css-extract-plugin but due to how
+                    // mini-css emits assets, assets are not emitted on repeated builds with
+                    // mini-css and hard-source together. Ignoring the mini-css loader
+                    // modules, but not the other css loader modules, excludes the modules
+                    // that mini-css needs rebuilt to output assets every time.
+                    test: /mini-css-extract-plugin[\\/]dist[\\/]loader/,
+                },
+            ]),
+
+        ]:[]),
+
+
 
 
         // !isProduction?new webpack.HotModuleReplacementPlugin():null

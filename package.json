@@ -22,6 +22,7 @@
     "html-webpack-plugin": "^3.2.0",
     "inline-chunk-manifest-html-webpack-plugin": "^2.0.0",
     "mini-css-extract-plugin": "^0.8.0",
+    "node-dir": "^0.1.17",
     "node-sass": "^4.12.0",
     "sass-loader": "^7.3.1",
     "style-loader": "^1.0.0",
@@ -42,7 +43,8 @@
     "dev": "cross-env NODE_ENV=development webpack-dev-server --progress --mode=none --config config/webpack.config.js",
     "build1": "webpack --mode=development --config=config/webpack.config.js",
     "build": "webpack --mode=none --config config/webpack.config.js",
-    "production": "cross-env NODE_ENV=production webpack --mode=production --config config/webpack.config.js"
+    "production": "cross-env NODE_ENV=production webpack --mode=production --config config/webpack.config.js",
+    "production:cache": "cross-env NODE_ENV=production cache=true webpack --mode=production --config config/webpack.config.js"
   },
   "dependencies": {
     "axios": "^0.19.0",

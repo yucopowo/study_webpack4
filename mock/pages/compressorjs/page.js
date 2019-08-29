@@ -1,7 +1,7 @@
 module.exports = {
     title: 'compressorjs',
     url: '/compressorjs',
-    template: 'compressorjs/index',
+    template: 'compressorjs',
     data: {
 
     }

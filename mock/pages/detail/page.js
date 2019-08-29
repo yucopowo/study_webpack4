@@ -1,7 +1,7 @@
 module.exports = {
     title: 'detail',
     url: '/detail',
-    template: 'detail/index',
+    template: 'detail',
     data: {
         urls:{
             upImgUrl : '/custom_resume/upimg/upimg',

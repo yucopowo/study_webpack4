@@ -17,10 +17,10 @@ function reload(modulepath) {
     return require(modulepath);
 }
 
-config.pages = config.pages.map((p)=>require(p));
-Object.keys(config.routes).forEach(function (url) {
-    config.routes[url]= require(config.routes[url]);
-});
+// config.pages = config.pages.map((p)=>require(p));
+// Object.keys(config.routes).forEach(function (url) {
+//     config.routes[url]= require(config.routes[url]);
+// });
 
 function base() {
     const args = Array.prototype.slice.call(arguments);
@@ -70,7 +70,7 @@ module.exports = {
             helpers: helpers
         }));
         // app.set('views', path.join(__dirname, 'views'));
-        app.set('views', base('src'));
+        app.set('views', base('views/templates/'));
 
         app.set('view engine', 'handlebars');
         app.disable('view cache');
@@ -80,7 +80,7 @@ module.exports = {
         // });
 
         app.get('/', function (req, res) {
-            res.render('index/index', {
+            res.render('index', {
                 pages: config.pages
             });
         });

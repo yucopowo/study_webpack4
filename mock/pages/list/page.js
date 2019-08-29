@@ -1,7 +1,7 @@
 module.exports = {
     title: 'list',
     url: '/list',
-    template: 'list/index',
+    template: 'list',
     data: {
 
     }
