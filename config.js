@@ -23,6 +23,7 @@ module.exports = {
         vue:        _path('./src/vue/index.js'),
         redux:      _path('./src/redux/index.js'),
         elm:        _path('./src/elm/index.js'),
+        compressorjs:_path('./src/compressorjs/index.js'),
 
     },
     pages: [
@@ -37,6 +38,7 @@ module.exports = {
         _path('./mock/pages/vue/page'),
         _path('./mock/pages/redux/page'),
         _path('./mock/pages/elm/page'),
+        _path('./mock/pages/compressorjs/page'),
 
     ],
     routes: {

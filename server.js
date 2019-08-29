@@ -36,6 +36,7 @@ module.exports = {
     // hotOnly: false,
     // inline: false,
     // lazy: true,
+    host: '0.0.0.0',
     contentBase: ['./cache','./dist','./public'],
     // filename: 'list.bundle.js',
     before: function(app, server) {

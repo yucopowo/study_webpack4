@@ -246,6 +246,11 @@ module.exports = {
                 test: /mini-css-extract-plugin[\\/]dist[\\/]loader/,
             },
         ]),
+
+
+
+
+
         // new BundleAnalyzerPlugin(),
 
         new VueLoaderPlugin(),
