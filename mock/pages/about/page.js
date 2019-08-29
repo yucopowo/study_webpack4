@@ -1,5 +1,5 @@
 module.exports = {
-    title: '关于页面',
+    title: 'about',
     url: '/about',
     template: 'about/index',
     data: {

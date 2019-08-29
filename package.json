@@ -9,6 +9,7 @@
     "babel-loader": "^8.0.6",
     "babel-plugin-component": "^1.1.1",
     "clean-webpack-plugin": "^3.0.0",
+    "cross-env": "^5.2.0",
     "css-loader": "^3.2.0",
     "elm": "^0.19.0-no-deps",
     "elm-webpack-loader": "^6.0.0",
@@ -38,10 +39,10 @@
   },
   "scripts": {
     "dll": "webpack --mode=none --config=webpack.config.dll.js",
-    "dev": "webpack-dev-server --progress --mode=none",
-    "build1": "webpack --mode=development --config webpack.config.js",
-    "build": "webpack --mode=none --config webpack.config.js",
-    "production": "webpack --mode=production --config webpack.config.js"
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --progress --mode=none --config config/webpack.config.js",
+    "build1": "webpack --mode=development --config=config/webpack.config.js",
+    "build": "webpack --mode=none --config config/webpack.config.js",
+    "production": "cross-env NODE_ENV=production webpack --mode=production --config config/webpack.config.js"
   },
   "dependencies": {
     "axios": "^0.19.0",

@@ -1,5 +1,5 @@
 module.exports = {
-    title: '自定义简历模版',
+    title: 'detail',
     url: '/detail',
     template: 'detail/index',
     data: {

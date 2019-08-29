@@ -5,7 +5,7 @@ const handlebars = require('handlebars');
 require('handlebars-helpers')({
     handlebars: handlebars
 });
-const config = require('./config');
+const config = require('../config.js');
 const helpers = {
     json: function(object) {
         return JSON.stringify(object);
@@ -21,6 +21,13 @@ config.pages = config.pages.map((p)=>require(p));
 Object.keys(config.routes).forEach(function (url) {
     config.routes[url]= require(config.routes[url]);
 });
+
+function base() {
+    const args = Array.prototype.slice.call(arguments);
+    // args.unshift('../');
+    // args.unshift(__dirname);
+    return path.resolve.apply(null, [__dirname, '../'].concat(args));
+}
 
 // async function requestManifest() {
 //     if(Object.keys(manifest).length>0) {
@@ -39,7 +46,10 @@ module.exports = {
     // inline: false,
     // lazy: true,
     host: '0.0.0.0',
-    contentBase: ['./cache','./dist','./public'],
+    contentBase: [
+        base('dist'),
+        base('public')
+    ],
     // filename: 'list.bundle.js',
     before: function(app, server) {
         const manifest = {};
@@ -54,13 +64,13 @@ module.exports = {
 
         app.engine('handlebars', exphbs({
             handlebars: handlebars,
-            layoutsDir: path.join(__dirname, './views/layouts/'),
-            partialsDir: path.join(__dirname, './views/partials/'),
+            layoutsDir: base('views/layouts/'),
+            partialsDir: base('views/partials/'),
             defaultLayout: 'default',
             helpers: helpers
         }));
         // app.set('views', path.join(__dirname, 'views'));
-        app.set('views', path.join(__dirname, 'src'));
+        app.set('views', base('src'));
 
         app.set('view engine', 'handlebars');
         app.disable('view cache');

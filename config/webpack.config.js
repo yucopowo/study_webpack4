@@ -7,9 +7,16 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const webpack = require('webpack');
-const { isDevelopment, isProduction } = require('webpack-mode');
-const config = require('./config');
+// const { isDevelopment, isProduction } = require('webpack-mode');
+const config = require('../config.js');
 
+const isDevelopment = (process.env.NODE_ENV === 'development');
+const isProduction = (process.env.NODE_ENV === 'production');
+
+function base() {
+    const args = Array.prototype.slice.call(arguments);
+    return path.resolve.apply(null, [__dirname, '../'].concat(args));
+}
 function _path() {
     const args = Array.prototype.slice.call(arguments);
     args.unshift(__dirname);
@@ -80,7 +87,7 @@ module.exports = {
     //     resolve(entry);
     // }),
     output: {
-        path: _path('dist'),
+        path: base('dist'),
         filename: isProduction?'[name].[contenthash].bundle.js':'[name].bundle.js',
         chunkFilename: isProduction?'[name].[contenthash].chunk.js':'[name].chunk.js'
     },
@@ -115,11 +122,11 @@ module.exports = {
                     //     knownHelpersOnly: false,
                     // },
                     partialDirs: [
-                        _path('views', 'partials')
+                        base('views', 'partials')
                     ],
                     helperDirs: [
                         // path.resolve(__dirname, 'node_modules/handlebars-helpers/lib'),
-                        _path('views', 'helpers'),
+                        base('views', 'helpers'),
                     ],
                     // helperResolver: function(helper, callback) {
                     //     // loop through handlebarsHelpers and pass to callback
@@ -251,10 +258,11 @@ module.exports = {
         extensions: ['*', '.js', '.vue', '.tsx', '.ts', '.elm']
     },
     plugins: [
-        new webpack.HotModuleReplacementPlugin(),
+
+
 
         new HardSourceWebpackPlugin({
-            cacheDirectory: _path('./.cache/[confighash]'),
+            cacheDirectory: base('./.cache/[confighash]'),
             info: {
                 // 'none' or 'test'.
                 mode: 'test',
@@ -274,10 +282,15 @@ module.exports = {
         ]),
 
 
+        // !isProduction?new webpack.HotModuleReplacementPlugin():null
 
-
+        // ...[
+        //     !isProduction[]
+        // ],
 
         // new BundleAnalyzerPlugin(),
+
+
 
         new VueLoaderPlugin(),
         new CleanWebpackPlugin({
@@ -289,18 +302,28 @@ module.exports = {
             ignoreOrder: false
         }),
 
-
-
-
-
-
-
-
         new ManifestPlugin({
             fileName: 'manifest.json',
             // fileName: 'asset-manifest.json',
             publicPath: publicPath,
         }),
+
+        ...[].concat(isDevelopment?[
+
+            new webpack.HotModuleReplacementPlugin()
+
+        ]:[]),
+
+        ...[].concat(isProduction?[
+
+
+        ]:[]),
+
+
+
+
+
+
 
 
         // new webpack.DllReferencePlugin({
