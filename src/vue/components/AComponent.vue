@@ -1,6 +1,6 @@
 <template>
     <div class="component-a">
-        <div>component-a</div>
+        <div>component-a===</div>
 
         <div>
             <a href="javascript:void(0);" @click="increment">increment</a>

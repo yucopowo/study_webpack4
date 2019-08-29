@@ -8,7 +8,7 @@ import './index.scss';
 import App from './App.vue';
 
 import FooComponent from './components/AComponent.vue';
-import BComponent from './components/BComponent.vue';
+import BarComponent from './components/BComponent.vue';
 // 2. Define some routes
 // Each route should map to a component. The "component" can
 // either be an actual component constructor created via
@@ -16,7 +16,7 @@ import BComponent from './components/BComponent.vue';
 // We'll talk about nested routes later.
 const routes = [
     { path: '/foo', component: FooComponent },
-    { path: '/bar', component: BComponent }
+    { path: '/bar', component: BarComponent  }
 ];
 
 const router = new VueRouter({
