@@ -45,6 +45,7 @@
   },
   "dependencies": {
     "axios": "^0.19.0",
+    "bootstrap": "^4.3.1",
     "bulma": "^0.7.5",
     "compressorjs": "^1.0.5",
     "dayjs": "^1.8.16",
@@ -54,6 +55,7 @@
     "jquery": "^3.4.1",
     "lodash": "^4.17.15",
     "pdfjs-dist": "^2.1.266",
+    "popper.js": "^1.15.0",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-redux": "^7.1.0",

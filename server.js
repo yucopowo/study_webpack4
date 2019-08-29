@@ -32,6 +32,8 @@ Object.keys(config.routes).forEach(function (url) {
 // }
 
 module.exports = {
+    overlay: true,
+    hot: true,
     // hot: false,
     // hotOnly: false,
     // inline: false,

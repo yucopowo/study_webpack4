@@ -102,8 +102,9 @@ module.exports = {
 
             {
                 test: /\.tsx?$/,
-                use: 'ts-loader',
-                exclude: /node_modules/
+                loader: 'ts-loader',
+                exclude: /node_modules/,
+                options: { appendTsSuffixTo: [/\.vue$/] }
             },
 
             {
@@ -132,7 +133,10 @@ module.exports = {
             {
                 test: /\.vue$/,
                 loader: 'vue-loader',
-                exclude: /node_modules/
+                exclude: /node_modules/,
+                options: {
+                    hotReload: !isProduction
+                }
             },
             {
                 test: /\.js$/,
@@ -140,42 +144,56 @@ module.exports = {
                 options: {
                     cacheDirectory: true
                 },
-                exclude: /node_modules/,
+                // exclude: /node_modules/,
+                exclude: file => (
+                    /node_modules/.test(file) &&
+                    !/\.vue\.js/.test(file)
+                )
             },
+            // {
+            //     test: /\.css$/,
+            //     use: [
+            //         {
+            //             loader: MiniCssExtractPlugin.loader,
+            //             options: {
+            //                 hmr: !isDevelopment,
+            //             },
+            //         },
+            //         // isDevelopment?'vue-style-loader':{
+            //         //     loader: MiniCssExtractPlugin.loader,
+            //         //     options: {
+            //         //         hmr: !isProduction,
+            //         //     },
+            //         // },
+            //         // isProduction?{
+            //         //     loader: MiniCssExtractPlugin.loader,
+            //         //     options: {
+            //         //         hmr: !isProduction,
+            //         //     },
+            //         // }:'vue-style-loader',
+            //         'css-loader',
+            //     ]
+            // },
+
             {
                 test: /\.css$/,
                 use: [
-                    {
-                        loader: MiniCssExtractPlugin.loader,
-                        options: {
-                            hmr: !isDevelopment,
-                        },
-                    },
-                    // isDevelopment?'vue-style-loader':{
-                    //     loader: MiniCssExtractPlugin.loader,
-                    //     options: {
-                    //         hmr: !isProduction,
-                    //     },
-                    // },
-                    // isProduction?{
-                    //     loader: MiniCssExtractPlugin.loader,
-                    //     options: {
-                    //         hmr: !isProduction,
-                    //     },
-                    // }:'vue-style-loader',
-                    'css-loader',
+                    isProduction?MiniCssExtractPlugin.loader:'vue-style-loader',
+                    'css-loader'
                 ]
             },
-
             {
-                test: /\.s[ac]ss$/i,
+                test: /\.s(a|c)ss$/i,
                 use: [
-                    {
-                        loader: MiniCssExtractPlugin.loader,
-                        options: {
-                            hmr: !isDevelopment,
-                        },
-                    },
+                    isProduction?MiniCssExtractPlugin.loader:'vue-style-loader',
+
+
+                    // {
+                    //     loader: MiniCssExtractPlugin.loader,
+                    //     options: {
+                    //         hmr: !isDevelopment,
+                    //     },
+                    // },
 
                     // isDevelopment?'vue-style-loader':{
                     //     loader: MiniCssExtractPlugin.loader,
@@ -233,8 +251,16 @@ module.exports = {
         extensions: ['*', '.js', '.vue', '.tsx', '.ts', '.elm']
     },
     plugins: [
+        new webpack.HotModuleReplacementPlugin(),
+
         new HardSourceWebpackPlugin({
             cacheDirectory: _path('./.cache/[confighash]'),
+            info: {
+                // 'none' or 'test'.
+                mode: 'test',
+                // 'debug', 'log', 'info', 'warn', or 'error'.
+                level: 'debug',
+            },
         }),
         new HardSourceWebpackPlugin.ExcludeModulePlugin([
             {
