@@ -21,6 +21,8 @@ module.exports = {
         video:      _path('./src/video/index.js'),
         echarts:    _path('./src/echarts/index.js'),
         vue:        _path('./src/vue/index.js'),
+        redux:      _path('./src/redux/index.js'),
+        elm:        _path('./src/elm/index.js'),
 
     },
     pages: [
@@ -33,6 +35,8 @@ module.exports = {
         _path('./mock/pages/video/page'),
         _path('./mock/pages/echarts/page'),
         _path('./mock/pages/vue/page'),
+        _path('./mock/pages/redux/page'),
+        _path('./mock/pages/elm/page'),
 
     ],
     routes: {
@@ -43,6 +47,7 @@ module.exports = {
         '/book':        _path('./mock/pages/book/router'),
         '/introduce':   _path('./mock/pages/introduce/router'),
         '/pdf':         _path('./mock/pages/pdf/router'),
+        '/redux':       _path('./mock/pages/redux/router'),
 
     }
 };
