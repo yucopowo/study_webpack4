@@ -4,5 +4,8 @@ module.exports = {
     template: 'book',
     data: {
 
+    },
+    entry: {
+        book: '@pages/book/index.js'
     }
 };

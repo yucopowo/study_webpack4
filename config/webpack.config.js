@@ -207,7 +207,10 @@ module.exports = {
 
     resolve: {
         alias: {
-            '@images': base('assets/images')
+            '@images': base('assets/images'),
+            '@pages': base('src/pages'),
+            '@components': base('src/components'),
+            '@utils': base('src/utils')
         },
         extensions: ['*', '.js', '.vue', '.tsx', '.ts', '.elm']
     },
@@ -220,7 +223,7 @@ module.exports = {
                 cacheDirectory: base('./.cache/[confighash]'),
                 info: {
                     // 'none' or 'test'.
-                    mode: 'test',
+                    mode: 'none',
                     // 'debug', 'log', 'info', 'warn', or 'error'.
                     level: 'debug',
                 },

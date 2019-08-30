@@ -21,6 +21,8 @@ function create() {
 
     // console.log(files);
 
+    const entry = {};
+
     const pages = [];
 
     const routes = {};
@@ -30,6 +32,23 @@ function create() {
         const m = require(file);
         if(file.endsWith('/page.js')){
             pages.push(m);
+
+
+            // m.entry;
+
+            //
+
+            // m.entry && Object.keys(m.entry).forEach(function (e) {
+            //
+            //     Object.assign(entry, {
+            //         // [e]: m.entry[e].replace('@pages/', path.resolve(__dirname,'src/pages/'))
+            //         [e]: m.entry[e]
+            //     });
+            //
+            // });
+
+            m.entry && Object.assign(entry, m.entry);
+
         }
         else if(file.endsWith('/router.js')){
             // routes.push(file);
@@ -39,7 +58,7 @@ function create() {
     });
 
     return {
-        pages, routes
+        entry, pages, routes
     }
 
     // dir.readFiles(path.resolve(__dirname, './', 'mock/pages'), {
@@ -55,33 +74,34 @@ function create() {
     //     });
 }
 
-const {pages, routes} = create();
+const {entry, pages, routes} = create();
 
-console.log(routes);
+console.log(entry);
 
 module.exports = {
-    entry: {
-        home:           _path('./src/pages/home/index.js'),
-        login:          _path('./src/pages/login/index.js'),
-        register:       _path('./src/pages/register/index.js'),
-        list:           _path('./src/pages/list/index.js'),
-        detail:         _path('./src/pages/detail/index.js'),
-        about:          _path('./src/pages/about/index.tsx'),
-        book:           _path('./src/pages/book/index.js'),
-        introduce:      _path('./src/pages/introduce/index.js'),
-        pdf:            _path('./src/pages/pdf/index.js'),
-        pdf_worker:     'pdfjs-dist/build/pdf.worker.entry',
-
-        video:          _path('./src/pages/video/index.js'),
-        echarts:        _path('./src/pages/echarts/index.js'),
-        vue:            _path('./src/pages/vue/index.js'),
-        redux:          _path('./src/pages/redux/index.js'),
-        elm:            _path('./src/pages/elm/index.js'),
-        compressorjs:   _path('./src/pages/compressorjs/index.js'),
-        'element-ui':   _path('./src/pages/element_ui/index.js'),
-        bootstrap:      _path('./src/pages/bootstrap/index.js'),
-
-    },
+    entry: entry,
+    // entry: {
+    //     // home:           _path('./src/pages/home/index.js'),
+    //     // login:          _path('./src/pages/login/index.js'),
+    //     // register:       _path('./src/pages/register/index.js'),
+    //     // list:           _path('./src/pages/list/index.js'),
+    //     // detail:         _path('./src/pages/detail/index.js'),
+    //     // about:          _path('./src/pages/about/index.tsx'),
+    //     // book:           _path('./src/pages/book/index.js'),
+    //     // introduce:      _path('./src/pages/introduce/index.js'),
+    //     // pdf:            _path('./src/pages/pdf/index.js'),
+    //     // pdf_worker:     'pdfjs-dist/build/pdf.worker.entry',
+    //     //
+    //     // video:          _path('./src/pages/video/index.js'),
+    //     // echarts:        _path('./src/pages/echarts/index.js'),
+    //     // vue:            _path('./src/pages/vue/index.js'),
+    //     // redux:          _path('./src/pages/redux/index.js'),
+    //     // elm:            _path('./src/pages/elm/index.js'),
+    //     // compressorjs:   _path('./src/pages/compressorjs/index.js'),
+    //     // 'element-ui':   _path('./src/pages/element_ui/index.js'),
+    //     // bootstrap:      _path('./src/pages/bootstrap/index.js'),
+    //
+    // },
     pages: pages,
     routes: routes,
     // pages: [

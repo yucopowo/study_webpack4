@@ -4,5 +4,8 @@ module.exports = {
     template: 'about',
     data: {
 
+    },
+    entry: {
+        about: '@pages/about/index.tsx'
     }
 };
