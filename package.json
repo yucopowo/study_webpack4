@@ -42,7 +42,7 @@
   },
   "scripts": {
     "dll": "webpack --mode=none --config=webpack.config.dll.js",
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --progress --mode=none --config config/webpack.config.js",
+    "dev": "cross-env NODE_ENV=development cache=true webpack-dev-server --progress --mode=none --config config/webpack.config.js",
     "build1": "webpack --mode=development --config=config/webpack.config.js",
     "build": "webpack --mode=none --config config/webpack.config.js",
     "production": "cross-env NODE_ENV=production webpack --mode=production --config config/webpack.config.js",
