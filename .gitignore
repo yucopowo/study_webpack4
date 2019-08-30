@@ -61,3 +61,7 @@ typings/
 .next
 /cache/
 /.cache/
+/elm-stuff/
+.idea/
+elm-stuff/
+yarn.lock
