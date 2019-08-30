@@ -94,7 +94,7 @@ module.exports = {
                 }
             },
             {
-                test: /\.js$/,
+                test: /\.jsx?$/,
                 loader: "babel-loader",
                 options: {
                     cacheDirectory: true
@@ -212,7 +212,7 @@ module.exports = {
             '@components': base('src/components'),
             '@utils': base('src/utils')
         },
-        extensions: ['*', '.js', '.vue', '.tsx', '.ts', '.elm']
+        extensions: ['*', '.js', '.jsx', '.vue', '.tsx', '.ts', '.elm']
     },
     plugins: [
 
