@@ -5,7 +5,7 @@ const handlebars = require('handlebars');
 require('handlebars-helpers')({
     handlebars: handlebars
 });
-const config = require('../config.js');
+const config = require('./config.js');
 const helpers = {
     json: function(object) {
         return JSON.stringify(object);

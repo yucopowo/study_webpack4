@@ -8,7 +8,7 @@ const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const webpack = require('webpack');
 // const { isDevelopment, isProduction } = require('webpack-mode');
-const config = require('../config.js');
+const config = require('./config.js');
 
 const isDevelopment = (process.env.NODE_ENV === 'development');
 const isProduction = (process.env.NODE_ENV === 'production');
