@@ -48,6 +48,16 @@ module.exports = {
     module: {
         noParse: [/.elm$/],
         rules: [
+            {
+                test: /\.riot$/,
+                exclude: /node_modules/,
+                use: [{
+                    loader: '@riotjs/webpack-loader',
+                    options: {
+                        hot: true
+                    }
+                }]
+            },
 
             {
                 test: /\.elm$/,
