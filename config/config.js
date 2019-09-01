@@ -38,7 +38,7 @@ console.log(entry);
 module.exports = {
     // entry: entry,
     entry: {
-        detail: path.resolve(__dirname, '../', 'src/pages/detail/index.js')
+        demo: path.resolve(__dirname, '../', 'src/pages/demo/index.js')
     },
     pages: pages,
     routes: routes,

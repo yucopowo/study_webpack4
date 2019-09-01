@@ -54,20 +54,33 @@ module.exports = {
     ],
     // filename: 'list.bundle.js',
     before: function(app, server) {
-        const manifest = {};
         const dll_manifest = {};
         async function requestManifest(req, res, next) {
-            if( !(req.url.indexOf('/manifest.json')!==-1) && Object.keys(manifest).length === 0 ){
-                const response = await axios.get(`http://127.0.0.1:${server.options.port}/manifest.json`);
-                Object.assign(manifest, response.data);
+            // if( !(req.url.indexOf('/manifest.json')!==-1) && Object.keys(manifest).length === 0 ){
+            //     const response = await axios.get(`http://127.0.0.1:${server.options.port}/manifest.json`);
+            //     Object.assign(manifest, response.data);
+            //
+            //     // const dll_response = await axios.get(`http://127.0.0.1:${server.options.port}/dll.manifest.json`);
+            //     // Object.assign(dll_manifest, dll_response.data);
+            //
+            //     const dll_response = fs.readFileSync(base('cache', 'dll.manifest.json'), 'utf-8');
+            //     Object.assign(manifest, JSON.parse(dll_response));
+            //
+            // }
+            const manifest = {};
 
-                // const dll_response = await axios.get(`http://127.0.0.1:${server.options.port}/dll.manifest.json`);
-                // Object.assign(dll_manifest, dll_response.data);
+            if( !(req.url.indexOf('/manifest.json')!==-1) ){
+                const response1 = fs.readFileSync(base('dist', 'manifest.json'), 'utf-8');
+                Object.assign(manifest, JSON.parse(response1));
 
-                const dll_response = fs.readFileSync(base('cache', 'dll.manifest.json'), 'utf-8');
-                Object.assign(manifest, JSON.parse(dll_response));
-
+                const response2 = fs.readFileSync(base('cache', 'dll.manifest.json'), 'utf-8');
+                Object.assign(manifest, JSON.parse(response2));
             }
+
+            console.log(manifest);
+
+            req.manifest = manifest;
+
             next();
         }
         app.use(requestManifest);
@@ -99,7 +112,7 @@ module.exports = {
         config.pages.forEach(function (page) {
             app.get(page.url, async function (req, res) {
                 res.render(page.template, {
-                    manifest: manifest,
+                    manifest: req.manifest,
                     dll_manifest: dll_manifest,
                     title: page.title || '',
                     data: page.data ?

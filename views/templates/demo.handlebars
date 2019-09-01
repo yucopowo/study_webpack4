@@ -1,9 +1,21 @@
-{{#manifest}}
-<link rel="stylesheet" href="{{'demo.css'}}">
-{{/manifest}}
-
-<div id="root"></div>
+<head>
+    {{> header}}
 
 {{#manifest}}
-<script src="{{'demo.js'}}"></script>
+    {{#if [demo.css]}}test{{/if}}
+    <link rel="stylesheet" href="{{[demo.css]}}">
 {{/manifest}}
+</head>
+
+<body>
+
+<div id="root">demo</div>
+
+{{#manifest}}
+<script src="{{[demo.js]}}"></script>
+{{/manifest}}
+
+</body>
+
+
+

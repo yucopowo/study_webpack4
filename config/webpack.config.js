@@ -282,6 +282,7 @@ module.exports = {
         }),
 
         new ManifestPlugin({
+            writeToFileEmit:true,
             fileName: 'manifest.json',
             // fileName: 'asset-manifest.json',
             publicPath: publicPath,
