@@ -1,6 +1,15 @@
-{{#manifest}}
-<link rel="stylesheet" href="{{'book.css'}}">
-{{/manifest}}
+<head>
+    {{> header}}
+
+    {{#manifest}}
+    <link rel="stylesheet" href="{{'bulma.css'}}">
+        {{#'book.css'}}
+            <link rel="stylesheet" href="{{'book.css'}}">
+        {{/'book.css'}}
+    {{/manifest}}
+</head>
+
+<body>
 
 <section class="hero is-medium is-primary">
     <div class="hero-body">
@@ -198,7 +207,7 @@
                 </p>
                 <p style="margin-top: 1rem;">
                     <a href="http://bulma.io">
-                        <img src="made-with-bulma.png" alt="Made with Bulma" width="128" height="24">
+                        <img src="images/made-with-bulma.png" alt="Made with Bulma" width="128" height="24">
                     </a>
                 </p>
             </div>
@@ -209,3 +218,8 @@
 {{#manifest}}
 <script src="{{'book.js'}}"></script>
 {{/manifest}}
+
+</body>
+
+
+

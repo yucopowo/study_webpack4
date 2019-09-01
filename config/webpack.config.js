@@ -143,14 +143,16 @@ module.exports = {
             {
                 test: /\.css$/,
                 use: [
-                    isProduction?MiniCssExtractPlugin.loader:'vue-style-loader',
+                    MiniCssExtractPlugin.loader,
+                    // isProduction?MiniCssExtractPlugin.loader:'vue-style-loader',
                     'css-loader'
                 ]
             },
             {
                 test: /\.s(a|c)ss$/i,
                 use: [
-                    isProduction?MiniCssExtractPlugin.loader:'vue-style-loader',
+                    MiniCssExtractPlugin.loader,
+                    // isProduction?MiniCssExtractPlugin.loader:'vue-style-loader',
 
 
                     // {
@@ -287,7 +289,7 @@ module.exports = {
 
         ...[].concat(isDevelopment?[
 
-            new webpack.HotModuleReplacementPlugin()
+            // new webpack.HotModuleReplacementPlugin()
 
         ]:[]),
 
@@ -314,9 +316,22 @@ module.exports = {
             context: path.resolve(__dirname, '../node_modules'),
             manifest: require(path.resolve(__dirname, '../cache/', "jquery.dll.manifest.json"))
         }),
-
-
-
+        new webpack.DllReferencePlugin({
+            context: path.resolve(__dirname, '../node_modules'),
+            manifest: require(path.resolve(__dirname, '../cache/', "bulma.dll.manifest.json"))
+        }),
+        new webpack.DllReferencePlugin({
+            context: path.resolve(__dirname, '../node_modules'),
+            manifest: require(path.resolve(__dirname, '../cache/', "bootstrap.dll.manifest.json"))
+        }),
+        new webpack.DllReferencePlugin({
+            context: path.resolve(__dirname, '../node_modules'),
+            manifest: require(path.resolve(__dirname, '../cache/', "compressorjs.dll.manifest.json"))
+        }),
+        new webpack.DllReferencePlugin({
+            context: path.resolve(__dirname, '../node_modules'),
+            manifest: require(path.resolve(__dirname, '../cache/', "axios.dll.manifest.json"))
+        }),
 
 
 

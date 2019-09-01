@@ -41,10 +41,10 @@ function base() {
 
 module.exports = {
     overlay: true,
-    hot: true,
-    // hot: false,
-    // hotOnly: false,
-    // inline: false,
+    // hot: true,
+    hot: false,
+    hotOnly: false,
+    inline: false,
     // lazy: true,
     host: '0.0.0.0',
     contentBase: [
@@ -65,7 +65,7 @@ module.exports = {
                 // Object.assign(dll_manifest, dll_response.data);
 
                 const dll_response = fs.readFileSync(base('cache', 'dll.manifest.json'), 'utf-8');
-                Object.assign(dll_manifest, JSON.parse(dll_response));
+                Object.assign(manifest, JSON.parse(dll_response));
 
             }
             next();

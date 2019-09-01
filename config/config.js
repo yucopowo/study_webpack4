@@ -38,7 +38,7 @@ console.log(entry);
 module.exports = {
     // entry: entry,
     entry: {
-        about: path.resolve(__dirname, '../', 'src/pages/about/index.tsx')
+        detail: path.resolve(__dirname, '../', 'src/pages/detail/index.js')
     },
     pages: pages,
     routes: routes,

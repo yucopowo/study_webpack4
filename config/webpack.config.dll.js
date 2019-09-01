@@ -13,9 +13,19 @@ module.exports = {
 
     entry: {
         // lodash: ['lodash'],
+
+
+        // bulma: ['bulma/bulma.sass'],
+        bulma: ['bulma'],
+        bootstrap: ['bootstrap', 'bootstrap/dist/css/bootstrap.css'],
+
+
+        axios: ['axios'],
         jquery: ['jquery'],
         vue: ['vue'],
         react: ['react', 'react-dom'],
+        compressorjs: ['compressorjs'],
+
         // element_ui: ['element-ui','element-ui/lib/theme-chalk/index.css'],
     },
     output: {
@@ -38,15 +48,26 @@ module.exports = {
             //     },
             //     exclude: /node_modules/
             // },
-            // {
-            //     test: /\.css$/,
-            //     use: [
-            //         {
-            //             loader: MiniCssExtractPlugin.loader
-            //         },
-            //         'css-loader',
-            //     ]
-            // },
+            {
+                test: /\.css$/,
+                use: [
+                    {
+                        loader: MiniCssExtractPlugin.loader
+                    },
+                    'css-loader',
+                ]
+            },
+            {
+                test: /\.s(a|c)ss$/i,
+                use: [
+                    {
+                        loader: MiniCssExtractPlugin.loader
+                    },
+                    'css-loader',
+                    'sass-loader',
+                ],
+            },
+
             // {
             //     test: /\.(eot|woff2?|ttf|svg)$/,
             //     use: [

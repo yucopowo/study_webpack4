@@ -1,19 +1,26 @@
-{{#manifest}}
-<link rel="stylesheet" href="{{'detail.css'}}">
-{{/manifest}}
+<head>
+    {{> header}}
 
+    {{#manifest}}
+        <link rel="stylesheet" href="{{'detail.css'}}">
+    {{/manifest}}
+</head>
 
+<body>
 <div id="root"></div>
-
 <textarea>{{json data}}</textarea>
 
 {{#data}}
-<div>
-    {{name}}
-</div>
+    <div>
+        {{name}}
+    </div>
 {{/data}}
 
-
 {{#manifest}}
+<script src="{{'axios.js'}}"></script>
 <script src="{{'detail.js'}}"></script>
 {{/manifest}}
+</body>
+
+
+
