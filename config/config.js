@@ -36,7 +36,10 @@ const {entry, pages, routes} = create();
 console.log(entry);
 
 module.exports = {
-    entry: entry,
+    // entry: entry,
+    entry: {
+        about: path.resolve(__dirname, '../', 'src/pages/about/index.tsx')
+    },
     pages: pages,
     routes: routes,
 };

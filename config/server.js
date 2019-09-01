@@ -1,4 +1,5 @@
 const axios = require("axios");
+const fs = require('fs');
 const path = require('path');
 const exphbs = require('express-handlebars');
 const handlebars = require('handlebars');
@@ -47,16 +48,25 @@ module.exports = {
     // lazy: true,
     host: '0.0.0.0',
     contentBase: [
+        base('cache'),
         base('dist'),
         base('public')
     ],
     // filename: 'list.bundle.js',
     before: function(app, server) {
         const manifest = {};
+        const dll_manifest = {};
         async function requestManifest(req, res, next) {
             if( !(req.url.indexOf('/manifest.json')!==-1) && Object.keys(manifest).length === 0 ){
                 const response = await axios.get(`http://127.0.0.1:${server.options.port}/manifest.json`);
                 Object.assign(manifest, response.data);
+
+                // const dll_response = await axios.get(`http://127.0.0.1:${server.options.port}/dll.manifest.json`);
+                // Object.assign(dll_manifest, dll_response.data);
+
+                const dll_response = fs.readFileSync(base('cache', 'dll.manifest.json'), 'utf-8');
+                Object.assign(dll_manifest, JSON.parse(dll_response));
+
             }
             next();
         }
@@ -90,6 +100,7 @@ module.exports = {
             app.get(page.url, async function (req, res) {
                 res.render(page.template, {
                     manifest: manifest,
+                    dll_manifest: dll_manifest,
                     title: page.title || '',
                     data: page.data ?
                         (typeof page.data === 'function')?page.data():page.data

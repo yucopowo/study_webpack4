@@ -209,10 +209,15 @@ module.exports = {
             // }
         ]
     },
+
     // externals: {
     //     'vue': 'Vue',
     //     'react': 'React',
     //     'lodash': '_',
+    // },
+
+    // externals: {
+    //     'react': 'React'
     // },
 
     resolve: {
@@ -269,8 +274,8 @@ module.exports = {
             verbose: true,
         }),
         new MiniCssExtractPlugin({
-            filename: isProduction?'[name].[contenthash].bundle.css':'[name].bundle.css',
-            chunkFilename: isProduction?'[id].[name].[contenthash].chunk.css':'[id].[name].chunk.css',
+            filename: isProduction?'[name].[contenthash].css':'[name].css',
+            chunkFilename: isProduction?'[name].[contenthash].chunk.css':'[name].chunk.css',
             ignoreOrder: false
         }),
 
@@ -290,6 +295,27 @@ module.exports = {
 
 
         ]:[]),
+
+
+
+
+
+
+
+
+
+
+
+        new webpack.DllReferencePlugin({
+            context: path.resolve(__dirname, '../node_modules'),
+            manifest: require(path.resolve(__dirname, '../cache/', "react.dll.manifest.json"))
+        }),
+        new webpack.DllReferencePlugin({
+            context: path.resolve(__dirname, '../node_modules'),
+            manifest: require(path.resolve(__dirname, '../cache/', "jquery.dll.manifest.json"))
+        }),
+
+
 
 
 
@@ -360,6 +386,12 @@ module.exports = {
 
 
     ],
+
+    // optimization: {
+    //     splitChunks: {
+    //         chunks: 'all'
+    //     }
+    // }
 
     // optimization: {
     //
