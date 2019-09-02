@@ -38,7 +38,7 @@ console.log(entry);
 module.exports = {
     // entry: entry,
     entry: {
-        demo: path.resolve(__dirname, '../', 'src/pages/demo/index.js')
+        demo_ie9: path.resolve(__dirname, '../', 'src/pages/demo_ie9/index.js')
     },
     pages: pages,
     routes: routes,

@@ -77,7 +77,7 @@ module.exports = {
                 Object.assign(manifest, JSON.parse(response2));
             }
 
-            console.log(manifest);
+            // console.log(manifest);
 
             req.manifest = manifest;
 
