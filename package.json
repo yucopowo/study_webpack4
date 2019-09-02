@@ -1,6 +1,5 @@
 {
   "devDependencies": {
-    "@babel/runtime": "^7.5.5",
     "@babel/core": "^7.5.5",
     "@babel/plugin-proposal-class-properties": "^7.5.5",
     "@babel/plugin-proposal-decorators": "^7.4.4",
@@ -9,6 +8,7 @@
     "@babel/plugin-transform-runtime": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
     "@babel/preset-react": "^7.0.0",
+    "@babel/runtime": "^7.5.5",
     "@babel/runtime-corejs3": "^7.5.5",
     "@riotjs/compiler": "^4.2.5",
     "@riotjs/hot-reload": "4.0.0",
@@ -16,6 +16,7 @@
     "@types/jquery": "^3.3.31",
     "@types/react": "^16.9.2",
     "@types/react-dom": "^16.9.0",
+    "autoprefixer": "^9.6.1",
     "babel-loader": "^8.0.6",
     "babel-plugin-component": "^1.1.1",
     "babel-plugin-transform-remove-console": "^6.9.4",
@@ -24,6 +25,7 @@
     "core-js": "3",
     "cross-env": "^5.2.0",
     "css-loader": "^3.2.0",
+    "cssnano": "^4.1.10",
     "elm": "^0.19.0-no-deps",
     "elm-webpack-loader": "^6.0.0",
     "express-handlebars": "^3.1.0",
@@ -37,6 +39,7 @@
     "mini-css-extract-plugin": "^0.8.0",
     "node-dir": "^0.1.17",
     "node-sass": "^4.12.0",
+    "postcss-loader": "^3.0.0",
     "sass-loader": "^7.3.1",
     "style-loader": "^1.0.0",
     "ts-loader": "^6.0.4",
@@ -56,10 +59,11 @@
     "create": "node ./config/create.js",
     "dll": "cross-env NODE_ENV=development webpack --mode=none --config config/webpack.config.dll.js",
     "dev": "cross-env NODE_ENV=development webpack-dev-server --progress --mode=none --config config/webpack.config.js",
-    "build1": "webpack --mode=development --config=config/webpack.config.js",
+    "dev:ie": "cross-env NODE_ENV=development BROWSER=ie webpack-dev-server --progress --mode=none --config config/webpack.config.js",
+    "build:dev": "webpack --mode=development --config=config/webpack.config.js",
     "build": "webpack --mode=none --config config/webpack.config.js",
     "production": "cross-env NODE_ENV=production webpack --progress --mode=production --config config/webpack.config.js",
-    "production:cache": "cross-env NODE_ENV=production cache=true webpack --mode=production --config config/webpack.config.js"
+    "production:cache": "cross-env NODE_ENV=production CACHE=true webpack --mode=production --config config/webpack.config.js"
   },
   "dependencies": {
     "axios": "^0.19.0",
@@ -85,5 +89,8 @@
     "vue": "^2.6.10",
     "vue-router": "^3.1.2",
     "vuex": "^3.1.1"
-  }
+  },
+  "browserslist": [
+    "last 2 versions"
+  ]
 }

@@ -12,7 +12,7 @@ const config = require('./config.js');
 
 const isDevelopment = (process.env.NODE_ENV === 'development');
 const isProduction = (process.env.NODE_ENV === 'production');
-const cache = (process.env.cache === 'true');
+const cache = (process.env.CACHE === 'true');
 
 
 function base() {
@@ -140,14 +140,14 @@ module.exports = {
             //     ]
             // },
 
-            {
-                test: /\.css$/,
-                use: [
-                    MiniCssExtractPlugin.loader,
-                    // isProduction?MiniCssExtractPlugin.loader:'vue-style-loader',
-                    'css-loader'
-                ]
-            },
+            // {
+            //     test: /\.css$/,
+            //     use: [
+            //         MiniCssExtractPlugin.loader,
+            //         // isProduction?MiniCssExtractPlugin.loader:'vue-style-loader',
+            //         'css-loader'
+            //     ]
+            // },
             {
                 test: /\.s(a|c)ss$/i,
                 use: [
@@ -175,7 +175,13 @@ module.exports = {
                     //     },
                     // }:'vue-style-loader',
                     // MiniCssExtractPlugin.loader,
-                    'css-loader',
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            importLoaders: 1,
+                        }
+                    },
+                    'postcss-loader',
                     'sass-loader',
                 ],
                 exclude: /node_modules/,

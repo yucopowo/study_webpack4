@@ -1,9 +1,10 @@
 const isProduction = (process.env.NODE_ENV === 'production');
+const isIE = (process.env.BROWSER === 'ie');
 
 module.exports = {
     "presets": [
 
-        ...[].concat(isProduction?[
+        ...[].concat((isProduction||isIE)?[
             [
                 "@babel/preset-env",
                 {
@@ -27,7 +28,7 @@ module.exports = {
     "plugins": [
         "@babel/plugin-transform-modules-commonjs",
 
-        ...[].concat(isProduction?[
+        ...[].concat((isProduction||isIE)?[
             ["@babel/plugin-transform-runtime",
                 {
                     "regenerator": true,
