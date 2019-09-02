@@ -17,6 +17,12 @@ console.log('demo_ie9');
 
 // const r = [1, 2, 3].find((x) => x >= 2);
 // console.log(r);
+
+class Circle {}
+
+
+
+
 function sleep(ms) {
     return new Promise((resolve, reject) => {
         setTimeout(() => {

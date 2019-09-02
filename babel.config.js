@@ -27,7 +27,8 @@ module.exports = {
         "@babel/plugin-transform-modules-commonjs",
         ["@babel/plugin-transform-runtime",
             {
-                "regenerator": true
+                "regenerator": true,
+                "corejs": 3
             }
         ],
         ["@babel/plugin-proposal-decorators", { "legacy": true }],
