@@ -61,7 +61,8 @@ class MFS {
 
 }
 
-const dll_manifest = JSON.parse(fs.readFileSync(base('dist', 'dll.manifest.json'), 'utf-8'));
+// const dll_manifest = JSON.parse(fs.readFileSync(base('dist', 'dll.manifest.json'), 'utf-8'));
+const dll_manifest = {};
 
 module.exports = {
     overlay: true,

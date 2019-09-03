@@ -12,6 +12,7 @@ function create() {
     const entry = {};
     const pages = [];
     const routes = {};
+    const dll = {};
 
     files.forEach(function (file) {
 
@@ -19,6 +20,7 @@ function create() {
         if(file.endsWith('/page.js')){
             pages.push(m);
             m.entry && Object.assign(entry, m.entry);
+            m.dll && Object.assign(dll, m.dll);
         }
         else if(file.endsWith('/router.js')){
 
@@ -48,16 +50,17 @@ function create() {
     });
 
     return {
-        entry, pages, routes
+        entry, pages, routes, dll
     }
 }
 
-const {entry, pages, routes} = create();
+const {entry, pages, routes, dll} = create();
 
-// console.log(entry);
+console.log(dll);
 
 module.exports = {
     // entry: entry,
+    dll: dll,
     entry: {
         // demo_ie9: path.resolve(__dirname, '../', 'src/pages/demo_ie9/index.js')
         detail: path.resolve(__dirname, '../', 'src/pages/detail/index.js')

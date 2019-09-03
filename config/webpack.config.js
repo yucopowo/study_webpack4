@@ -5,6 +5,7 @@ const ManifestPlugin = require('webpack-manifest-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer');
+const AutoDllPlugin = require('autodll-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const webpack = require('webpack');
 // const { isDevelopment, isProduction } = require('webpack-mode');
@@ -327,40 +328,74 @@ module.exports = {
 
         ]:[]),
 
+        new AutoDllPlugin({
+            filename: '[name].dll.js',
+            // path: base('../cache'),
+            // path: './dll',
+            entry: config.dll || {
+                // detail: ['axios'],
+
+                // detail_
+
+                // vendor: [
+                //     'axios'
+                //     // 'react',
+                //     // 'react-dom'
+                // ]
+            }
+        })
 
 
 
+        // ...[].concat(
+        //     (()=>{
+        //
+        //
+        //         const dir = require('node-dir');
+        //
+        //         const files = dir.files(path.resolve(__dirname, '../', 'cache'), 'file', function(err, files) {
+        //             if (err) throw err;
+        //         }, {
+        //             sync:true
+        //         }).filter(function (file) {
+        //             return file.endsWith('.dll.manifest.json');
+        //         }).map(f=>new webpack.DllReferencePlugin({
+        //             context: path.resolve(__dirname, '../node_modules'),
+        //             manifest: require(f)
+        //         }));
+        //
+        //         console.log(files);
+        //
+        //         return files;
+        //     })()
+        // ),
 
 
 
-
-
-
-
-        new webpack.DllReferencePlugin({
-            context: path.resolve(__dirname, '../node_modules'),
-            manifest: require(path.resolve(__dirname, '../cache/', "react.dll.manifest.json"))
-        }),
-        new webpack.DllReferencePlugin({
-            context: path.resolve(__dirname, '../node_modules'),
-            manifest: require(path.resolve(__dirname, '../cache/', "jquery.dll.manifest.json"))
-        }),
-        new webpack.DllReferencePlugin({
-            context: path.resolve(__dirname, '../node_modules'),
-            manifest: require(path.resolve(__dirname, '../cache/', "bulma.dll.manifest.json"))
-        }),
-        new webpack.DllReferencePlugin({
-            context: path.resolve(__dirname, '../node_modules'),
-            manifest: require(path.resolve(__dirname, '../cache/', "bootstrap.dll.manifest.json"))
-        }),
-        new webpack.DllReferencePlugin({
-            context: path.resolve(__dirname, '../node_modules'),
-            manifest: require(path.resolve(__dirname, '../cache/', "compressorjs.dll.manifest.json"))
-        }),
-        new webpack.DllReferencePlugin({
-            context: path.resolve(__dirname, '../node_modules'),
-            manifest: require(path.resolve(__dirname, '../cache/', "axios.dll.manifest.json"))
-        }),
+        // new webpack.DllReferencePlugin({
+        //     context: path.resolve(__dirname, '../node_modules'),
+        //     manifest: require(path.resolve(__dirname, '../cache/', "react.dll.manifest.json"))
+        // }),
+        // new webpack.DllReferencePlugin({
+        //     context: path.resolve(__dirname, '../node_modules'),
+        //     manifest: require(path.resolve(__dirname, '../cache/', "jquery.dll.manifest.json"))
+        // }),
+        // new webpack.DllReferencePlugin({
+        //     context: path.resolve(__dirname, '../node_modules'),
+        //     manifest: require(path.resolve(__dirname, '../cache/', "bulma.dll.manifest.json"))
+        // }),
+        // new webpack.DllReferencePlugin({
+        //     context: path.resolve(__dirname, '../node_modules'),
+        //     manifest: require(path.resolve(__dirname, '../cache/', "bootstrap.dll.manifest.json"))
+        // }),
+        // new webpack.DllReferencePlugin({
+        //     context: path.resolve(__dirname, '../node_modules'),
+        //     manifest: require(path.resolve(__dirname, '../cache/', "compressorjs.dll.manifest.json"))
+        // }),
+        // new webpack.DllReferencePlugin({
+        //     context: path.resolve(__dirname, '../node_modules'),
+        //     manifest: require(path.resolve(__dirname, '../cache/', "axios.dll.manifest.json"))
+        // }),
 
 
 

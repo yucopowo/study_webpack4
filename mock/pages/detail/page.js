@@ -2,6 +2,9 @@ module.exports = {
     title: 'detail',
     url: '/detail',
     template: 'detail',
+    dll: {
+        detail: ['axios']
+    },
     entry: {
         detail: '@pages/detail/index.js'
     },
