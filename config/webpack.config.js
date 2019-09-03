@@ -151,7 +151,28 @@ module.exports = {
             {
                 test: /\.s(a|c)ss$/i,
                 use: [
-                    MiniCssExtractPlugin.loader,
+
+                    isDevelopment?'vue-style-loader':MiniCssExtractPlugin.loader,
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            importLoaders: 1,
+                        }
+                    },
+                    'postcss-loader',
+                    'sass-loader',
+
+
+
+                    // {
+                    //     loader: MiniCssExtractPlugin.loader,
+                    //     options: {
+                    //         hmr: isDevelopment
+                    //     },
+                    // },
+
+
+                    // MiniCssExtractPlugin.loader,
                     // isProduction?MiniCssExtractPlugin.loader:'vue-style-loader',
 
 
@@ -175,14 +196,7 @@ module.exports = {
                     //     },
                     // }:'vue-style-loader',
                     // MiniCssExtractPlugin.loader,
-                    {
-                        loader: 'css-loader',
-                        options: {
-                            importLoaders: 1,
-                        }
-                    },
-                    'postcss-loader',
-                    'sass-loader',
+
                 ],
                 exclude: /node_modules/,
             },

@@ -61,9 +61,11 @@ class MFS {
 
 }
 
+const dll_manifest = JSON.parse(fs.readFileSync(base('dist', 'dll.manifest.json'), 'utf-8'));
+
 module.exports = {
     overlay: true,
-    // hot: true,
+    hot: true,
     // hot: false,
     // hotOnly: false,
     // inline: false,
@@ -184,9 +186,9 @@ module.exports = {
             app.get(page.url, async function (req, res) {
                 const manifest = JSON.parse(mfs.readFileSync('manifest.json'));
                 res.render(page.template, {
-                    manifest: manifest,
+                    manifest: Object.assign({}, dll_manifest, manifest),
                     title: page.title || '',
-                    debug: !!page.debug,
+                    debug: page.hasOwnProperty('debug')?page.debug:true,
                     data: page.data ?
                         (typeof page.data === 'function')?page.data():page.data
                         : {}

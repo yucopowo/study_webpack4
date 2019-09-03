@@ -2,7 +2,7 @@
     {{> header}}
 
     {{#manifest}}
-        <link rel="stylesheet" href="{{'detail.css'}}">
+    <link rel="stylesheet" href="{{[detail.css]}}">
     {{/manifest}}
 </head>
 
@@ -17,8 +17,8 @@
 {{/data}}
 
 {{#manifest}}
-<script src="{{'axios.js'}}"></script>
-<script src="{{'detail.js'}}"></script>
+<script src="{{[axios.js]}}"></script>
+<script src="{{[detail.js]}}"></script>
 {{/manifest}}
 </body>
 
