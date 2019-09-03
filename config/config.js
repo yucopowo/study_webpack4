@@ -63,8 +63,8 @@ module.exports = {
     dll: dll,
     entry: {
         // demo_ie9: path.resolve(__dirname, '../', 'src/pages/demo_ie9/index.js')
-        detail: path.resolve(__dirname, '../', 'src/pages/detail/index.js')
-
+        // detail: path.resolve(__dirname, '../', 'src/pages/detail/index.js')
+        demo_bootstrap_bundle: path.resolve(__dirname, '../', 'src/pages/demo_bootstrap/index.js')
     },
     pages: pages,
     routes: routes,

@@ -35,6 +35,19 @@ function recursiveIssuer(m) {
     }
 }
 
+// const seed = {};
+// const generate = (_, files) => files.reduce((_, { name, path }) => {
+//     // modify the shared seed object, so as to share it between the main and
+//     // DLL compiler instance
+//     console.log(name, path);
+//
+//     seed[name] = path;
+//     return seed;
+// });
+console.log('config.entry');
+
+console.log(config.entry);
+
 const publicPath = '';
 // const publicPath = 'http://127.0.0.1:8080/';
 module.exports = {
@@ -150,7 +163,7 @@ module.exports = {
             //     ]
             // },
             {
-                test: /\.s(a|c)ss$/i,
+                test: /\.(sa|sc|c)ss$/i,
                 use: [
 
                     isDevelopment?'vue-style-loader':MiniCssExtractPlugin.loader,
@@ -199,7 +212,7 @@ module.exports = {
                     // MiniCssExtractPlugin.loader,
 
                 ],
-                exclude: /node_modules/,
+                // exclude: /node_modules/,
             },
             {
                 test: /\.(eot|woff2?|ttf|svg)$/,
@@ -250,7 +263,7 @@ module.exports = {
             '@components': base('src/components'),
             '@utils': base('src/utils')
         },
-        extensions: ['*', '.js', '.jsx', '.vue', '.tsx', '.ts', '.elm']
+        extensions: ['*', '.js', '.jsx', '.vue', '.tsx', '.ts', '.elm', '.css', '.scss']
     },
     plugins: [
 
@@ -317,8 +330,76 @@ module.exports = {
 
         new ManifestPlugin({
             // writeToFileEmit:true,
-            fileName: 'manifest.json',
-            publicPath: publicPath,
+            // fileName: 'manifest.json',
+            // publicPath: publicPath,
+            serialize: function(manifest) {
+
+                console.log('================');
+                console.log(manifest);
+                console.log('================');
+
+
+                const obj = {
+                    css:{},
+                    js:{},
+                    unknown: {}
+                };
+
+                Object.keys(manifest).forEach(function (k) {
+                    if(k.endsWith('.css')){
+                        const key = k.replace(/\.[a-z0-9.]*css$/,'');
+                        obj.css[key] = manifest[k];
+                    }
+                    else if(k.endsWith('.js')){
+                        const key = k.replace(/\.[a-z0-9.]*js$/,'');
+                        obj.js[key] = manifest[k];
+                    }
+                    else{
+                        obj.unknown[k] = manifest[k];
+                    }
+                });
+
+
+
+
+
+
+                return JSON.stringify(obj, null, 2);
+                // const obj = {};
+                //
+                // Object.keys(manifest).forEach(function (k) {
+                //     if(k.endsWith('_dll.css') || k.endsWith('_dll.js')){
+                //         obj[k.replace(/\.[a-z0-9]+/,'')] = manifest[k];
+                //     }
+                //     else{
+                //         obj[k] = manifest[k];
+                //     }
+                // });
+                //
+                // const css = {};
+                // const js = {};
+                //
+                // Object.keys(obj).forEach(function (k) {
+                //     if(k.endsWith('.css')){
+                //         const key = k.substring(0, k.length-4);
+                //         css[key] = obj[k];
+                //     }
+                //     else if(k.endsWith('.js')){
+                //         const key = k.substring(0, k.length-3);
+                //         js[key] = obj[k];
+                //     }
+                //     else{
+                //     }
+                // });
+                //
+                //
+                // Object.assign(obj, {
+                //     css: css,
+                //     js: js
+                // });
+                //
+                // return JSON.stringify(obj, null, 2);
+            },
         }),
 
 
@@ -329,7 +410,9 @@ module.exports = {
         ]:[]),
 
         new AutoDllPlugin({
-            filename: '[name].dll.js',
+            // debug: true,
+            // filename: '[name].dll.js',
+            filename: isProduction?'[name].[contenthash].js':'[name].js',
             // path: base('../cache'),
             // path: './dll',
             entry: config.dll || {
@@ -342,7 +425,58 @@ module.exports = {
                 //     // 'react',
                 //     // 'react-dom'
                 // ]
-            }
+            },
+            inherit: true,
+            // webpack: {
+            //     module: {
+            //         rules: [
+            //             {
+            //                 test: /\.(sa|sc|c)ss$/i,
+            //                 use: [
+            //                     isDevelopment?'vue-style-loader':MiniCssExtractPlugin.loader,
+            //                     {
+            //                         loader: 'css-loader',
+            //                         options: {
+            //                             importLoaders: 1,
+            //                         }
+            //                     },
+            //                     'postcss-loader',
+            //                     'sass-loader',
+            //                 ],
+            //             }
+            //         ]
+            //     },
+            // },
+
+
+            plugins: [
+
+
+                new MiniCssExtractPlugin({
+                    filename: isProduction?'[name].[contenthash].css':'[name].css',
+                    chunkFilename: isProduction?'[name].[contenthash].chunk.css':'[name].chunk.css',
+                    ignoreOrder: false
+                }),
+
+                // new ManifestPlugin({
+                //     // generate,
+                //     // seed
+                //     // serialize: (manifest) => JSON.stringify(manifest, null, 4)
+                //
+                //     serialize: function(manifest) {
+                //
+                //         console.log('================');
+                //
+                //
+                //         return JSON.stringify(manifest, null, 2);
+                //     },
+                //
+                // }),
+
+
+
+
+            ]
         })
 
 

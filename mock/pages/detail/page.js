@@ -3,7 +3,7 @@ module.exports = {
     url: '/detail',
     template: 'detail',
     dll: {
-        detail: ['axios']
+        // detail: ['axios']
     },
     entry: {
         detail: '@pages/detail/index.js'

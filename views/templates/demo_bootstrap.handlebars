@@ -1,7 +1,13 @@
-{{#manifest}}
-<link rel="stylesheet" href="{{'bootstrap.css'}}">
-<link rel="stylesheet" href="{{'demo_bootstrap.css'}}">
-{{/manifest}}
+<head>
+    {{> header}}
+
+    {{#manifest.css}}
+    <link rel="stylesheet" href="{{demo_bootstrap_vendor}}">
+    <link rel="stylesheet" href="{{demo_bootstrap_bundle}}">
+    {{/manifest.css}}
+</head>
+
+<body>
 
 <div class="container-fluid">
     <section>
@@ -192,7 +198,12 @@ sagittis lacus vel augue laoreet rutrum faucibus.">
     </section>
 </div>
 
-{{#manifest}}
-<script src="{{'bootstrap.js'}}"></script>
-<script src="{{'demo_bootstrap.js'}}"></script>
-{{/manifest}}
+{{#manifest.js}}
+<script src="{{demo_bootstrap_vendor}}"></script>
+<script src="{{demo_bootstrap_bundle}}"></script>
+{{/manifest.js}}
+
+</body>
+
+
+
