@@ -64,7 +64,10 @@ module.exports = {
     entry: {
         // demo_ie9: path.resolve(__dirname, '../', 'src/pages/demo_ie9/index.js')
         // detail: path.resolve(__dirname, '../', 'src/pages/detail/index.js')
-        demo_bootstrap_bundle: path.resolve(__dirname, '../', 'src/pages/demo_bootstrap/index.js')
+        // demo_bootstrap_bundle: path.resolve(__dirname, '../', 'src/pages/demo_bootstrap/index.js')
+
+        demo_all_bundle: path.resolve(__dirname, '../', 'src/pages/demo_all/index.js')
+
     },
     pages: pages,
     routes: routes,

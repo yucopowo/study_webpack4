@@ -1,0 +1,22 @@
+<head>
+    {{> header}}
+
+    {{#manifest.css}}
+    <link rel="stylesheet" href="{{demo_all_vendor}}">
+    <link rel="stylesheet" href="{{demo_all_bundle}}">
+    {{/manifest.css}}
+</head>
+
+<body>
+
+<div id="root"></div>
+
+{{#manifest.js}}
+<script src="{{demo_all_vendor}}"></script>
+<script src="{{demo_all_bundle}}"></script>
+{{/manifest.js}}
+
+</body>
+
+
+

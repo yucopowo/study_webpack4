@@ -334,7 +334,7 @@ module.exports = {
             // publicPath: publicPath,
             serialize: function(manifest) {
 
-                console.log('================');
+                console.log('\n================');
                 console.log(manifest);
                 console.log('================');
 

@@ -6,4 +6,4 @@ import './index.scss';
 
 $('.toast').toast('show');
 
-console.log(555555);
+console.log(666666);
