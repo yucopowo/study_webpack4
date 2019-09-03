@@ -103,7 +103,7 @@ module.exports = {
         //     // publicPath: publicPath,
         // }),
         new WebpackAssetsManifest({
-            output: _path('cache/dll.manifest.json')
+            output: _path('dist/dll.manifest.json')
         }),
         new MiniCssExtractPlugin({
             filename: isProduction?'[name].[contenthash].dll.css':'[name].dll.css',

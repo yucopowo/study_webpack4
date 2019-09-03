@@ -3,9 +3,10 @@ module.exports = {
     url: '/demo_ie9',
     template: 'demo_ie9',
     entry: {
-        bootstrap: '@pages/demo_ie9/index.js'
+        demo_ie9: '@pages/demo_ie9/index.js'
     },
+    debug: true,
     data: {
-
+        name: 'yyy'
     }
 };

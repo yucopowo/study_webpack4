@@ -2,19 +2,22 @@
     {{> header}}
 
 {{#manifest}}
-    {{#if [demo_ie9.css]}}
-        <link rel="stylesheet" href="{{[demo_ie9.css]}}">
-    {{/if}}
+{{#if [demo_ie9.css]}}
+    <link rel="stylesheet" href="{{[demo_ie9.css]}}">
+{{/if}}
 {{/manifest}}
+
+    {{> debug}}
 </head>
 
 <body>
 
 <div id="root">ie9</div>
 
-<script>
-    function _dll_bootstrap() {}
-</script>
+{{#data}}
+    <div>{{name}}</div>
+{{/data}}
+
 {{#manifest}}
 <script src="{{[demo_ie9.js]}}"></script>
 {{/manifest}}

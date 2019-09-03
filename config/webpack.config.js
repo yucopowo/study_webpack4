@@ -239,6 +239,12 @@ module.exports = {
     },
     plugins: [
 
+        ...[].concat(isDevelopment?[
+
+            new webpack.HotModuleReplacementPlugin()
+
+        ]:[]),
+
 
         ...[].concat(cache?[
 
@@ -278,9 +284,16 @@ module.exports = {
 
 
         new VueLoaderPlugin(),
-        new CleanWebpackPlugin({
-            verbose: true,
-        }),
+
+
+        ...[].concat(isProduction?[
+            new CleanWebpackPlugin({
+                verbose: true,
+            }),
+        ]:[]),
+
+
+
         new MiniCssExtractPlugin({
             filename: isProduction?'[name].[contenthash].css':'[name].css',
             chunkFilename: isProduction?'[name].[contenthash].chunk.css':'[name].chunk.css',
@@ -288,17 +301,12 @@ module.exports = {
         }),
 
         new ManifestPlugin({
-            writeToFileEmit:true,
+            // writeToFileEmit:true,
             fileName: 'manifest.json',
-            // fileName: 'asset-manifest.json',
             publicPath: publicPath,
         }),
 
-        ...[].concat(isDevelopment?[
 
-            // new webpack.HotModuleReplacementPlugin()
-
-        ]:[]),
 
         ...[].concat(isProduction?[
 

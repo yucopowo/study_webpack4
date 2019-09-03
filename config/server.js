@@ -39,12 +39,34 @@ function base() {
 //     return manifest;
 // }
 
+function exists(filepath) {
+    return new Promise(function (resolve, reject) {
+        fs.exists(filepath, function(exists) {
+            // console.log(exists ? "创建成功" : "创建失败");
+            resolve(exists);
+        });
+    });
+}
+
+class MFS {
+
+    constructor(server) {
+        this.mfs = server.middleware.context.fs;
+        this.__basename = path.resolve(__dirname, '../dist')
+    }
+
+    readFileSync(_path) {
+        return this.mfs.readFileSync(path.resolve(this.__basename, _path), 'utf-8');
+    }
+
+}
+
 module.exports = {
     overlay: true,
     // hot: true,
-    hot: false,
-    hotOnly: false,
-    inline: false,
+    // hot: false,
+    // hotOnly: false,
+    // inline: false,
     // lazy: true,
     host: '0.0.0.0',
     contentBase: [
@@ -54,36 +76,83 @@ module.exports = {
     ],
     // filename: 'list.bundle.js',
     before: function(app, server) {
-        const dll_manifest = {};
-        async function requestManifest(req, res, next) {
-            // if( !(req.url.indexOf('/manifest.json')!==-1) && Object.keys(manifest).length === 0 ){
-            //     const response = await axios.get(`http://127.0.0.1:${server.options.port}/manifest.json`);
-            //     Object.assign(manifest, response.data);
-            //
-            //     // const dll_response = await axios.get(`http://127.0.0.1:${server.options.port}/dll.manifest.json`);
-            //     // Object.assign(dll_manifest, dll_response.data);
-            //
-            //     const dll_response = fs.readFileSync(base('cache', 'dll.manifest.json'), 'utf-8');
-            //     Object.assign(manifest, JSON.parse(dll_response));
-            //
-            // }
-            const manifest = {};
 
-            if( !(req.url.indexOf('/manifest.json')!==-1) ){
-                const response1 = fs.readFileSync(base('dist', 'manifest.json'), 'utf-8');
-                Object.assign(manifest, JSON.parse(response1));
 
-                const response2 = fs.readFileSync(base('cache', 'dll.manifest.json'), 'utf-8');
-                Object.assign(manifest, JSON.parse(response2));
-            }
+        // this.middleware
 
-            // console.log(manifest);
+        const mfs = new MFS(server);
 
-            req.manifest = manifest;
 
-            next();
-        }
-        app.use(requestManifest);
+
+        // async function requestManifest(req, res, next) {
+        //
+        //     console.log('==============================');
+        //     // console.log(server);
+        //     // console.log();
+        //
+        //     (()=>{
+        //         // const mfs = server.middleware.context.fs;
+        //
+        //         // mfs.readFileSync("/a/test/dir/file.txt");
+        //
+        //         // const files = mfs.readdirSync('/');
+        //         //
+        //         // console.log(files);
+        //         // console.log(JSON.stringify(mfs.data.Users.yxl.workspace.workspace_react.study_webpack4.dist));
+        //
+        //
+        //         // console.log(Buffer.from(mfs.data.Users.yxl.workspace.workspace_react.study_webpack4.dist, 'utf-8'));
+        //         // console.log( mfs.data.Users.yxl.workspace.workspace_react.study_webpack4.dist );
+        //
+        //
+        //         // console.log(__dirname);
+        //
+        //         console.log( mfs.readFileSync('manifest.json') );
+        //
+        //
+        //
+        //     })();
+        //
+        //
+        //
+        //     console.log('==============================');
+        //
+        //
+        //     // if( !(req.url.indexOf('/manifest.json')!==-1) && Object.keys(manifest).length === 0 ){
+        //     //     const response = await axios.get(`http://127.0.0.1:${server.options.port}/manifest.json`);
+        //     //     Object.assign(manifest, response.data);
+        //     //
+        //     //     // const dll_response = await axios.get(`http://127.0.0.1:${server.options.port}/dll.manifest.json`);
+        //     //     // Object.assign(dll_manifest, dll_response.data);
+        //     //
+        //     //     const dll_response = fs.readFileSync(base('cache', 'dll.manifest.json'), 'utf-8');
+        //     //     Object.assign(manifest, JSON.parse(dll_response));
+        //     //
+        //     // }
+        //     const manifest = {};
+        //
+        //     if( !(req.url.indexOf('/manifest.json')!==-1) ){
+        //         // const exists1 = await exists(base('dist', 'manifest.json'));
+        //         // if(exists1) {
+        //         //     const response1 = fs.readFileSync(base('dist', 'manifest.json'), 'utf-8');
+        //         //     Object.assign(manifest, JSON.parse(response1));
+        //         // }
+        //         //
+        //         //
+        //         // const exists2 = await exists(base('dist', 'dll.manifest.json'));
+        //         // if(exists2) {
+        //         //     const response2 = fs.readFileSync(base('dist', 'dll.manifest.json'), 'utf-8');
+        //         //     Object.assign(manifest, JSON.parse(response2));
+        //         // }
+        //     }
+        //
+        //     // console.log(manifest);
+        //
+        //     req.manifest = manifest;
+        //
+        //     next();
+        // }
+        // app.use(requestManifest);
 
         app.engine('handlebars', exphbs({
             handlebars: handlebars,
@@ -110,11 +179,14 @@ module.exports = {
 
 
         config.pages.forEach(function (page) {
+            // console.log(page);
+
             app.get(page.url, async function (req, res) {
+                const manifest = JSON.parse(mfs.readFileSync('manifest.json'));
                 res.render(page.template, {
-                    manifest: req.manifest,
-                    dll_manifest: dll_manifest,
+                    manifest: manifest,
                     title: page.title || '',
+                    debug: !!page.debug,
                     data: page.data ?
                         (typeof page.data === 'function')?page.data():page.data
                         : {}

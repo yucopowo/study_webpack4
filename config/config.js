@@ -33,7 +33,7 @@ function create() {
 
 const {entry, pages, routes} = create();
 
-console.log(entry);
+// console.log(entry);
 
 module.exports = {
     // entry: entry,
