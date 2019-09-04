@@ -1,10 +1,11 @@
 const isProduction = (process.env.NODE_ENV === 'production');
+const isBuild = (process.env.NODE_ENV === 'build');
 const isIE = (process.env.BROWSER === 'ie');
 
 module.exports = {
     plugins: [
 
-        ...[].concat((isProduction||isIE)?[
+        ...[].concat((isBuild||isProduction||isIE)?[
             require('autoprefixer')
         ]:[]),
 

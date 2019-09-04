@@ -8,7 +8,7 @@ module.exports = {
             'vue','vue-router','vuex',
             'echarts',
             'element-ui',
-            //'element-ui/lib/theme-chalk/index.css'
+            'element-ui/lib/theme-chalk/index.css'
         ],
     },
     entry: {

@@ -13,6 +13,7 @@ const config = require('./config.js');
 
 const isDevelopment = (process.env.NODE_ENV === 'development');
 const isProduction = (process.env.NODE_ENV === 'production');
+const isBuild = (process.env.NODE_ENV === 'build');
 const cache = (process.env.CACHE === 'true');
 
 
@@ -214,30 +215,71 @@ module.exports = {
                 ],
                 // exclude: /node_modules/,
             },
-            {
-                test: /\.(eot|woff2?|ttf|svg)$/,
-                use: [
-                    {
-                        loader: "url-loader",
-                        options: {
-                            name: isProduction?'[contenthash].[ext]':'[path][name].[ext]',
-                            // name: isProduction?"[name].[hash].[ext]":'[name].[ext]',
-                            limit: 5000, // fonts file size <= 5KB, use 'base64'; else, output svg file
-                            // publicPath: "fonts/",
-                            outputPath: "fonts/"
-                        }
-                    }
-                ]
-            },
+
+
             {
                 test: /\.(png|jpe?g|gif)$/i,
-                loader: 'url-loader',
+                loader: 'file-loader',
                 options: {
                     outputPath: 'images',
-                    limit: 8192,
-                    name: isProduction?'[contenthash].[ext]':'[path][name].[ext]'
-                }
-            }
+                },
+            },
+            {
+                test: /\.(eot|woff2?|ttf|svg)$/i,
+                loader: 'file-loader',
+                options: {
+                    outputPath: 'fonts',
+                },
+            },
+
+
+            // {
+            //     test: /\.(eot|woff2?|ttf|svg)$/,
+            //     use: [
+            //         {
+            //             loader: "url-loader",
+            //             options: {
+            //
+            //
+            //                 name: '[path][name].[ext]',
+            //                 // outputPath: "fonts/"
+            //
+            //
+            //                 // name: isProduction?'[contenthash].[ext]':'[path][name].[ext]',
+            //                 // name: isProduction?"[name].[hash].[ext]":'[name].[ext]',
+            //                 // limit: 5000, // fonts file size <= 5KB, use 'base64'; else, output svg file
+            //                 // publicPath: "fonts/",
+            //                 // outputPath: "fonts/"
+            //             }
+            //         }
+            //     ]
+            // },
+            // {
+            //     test: /\.(png|jpe?g|gif)$/,
+            //     use: [
+            //         {
+            //             loader: "url-loader",
+            //             options: {
+            //                 name: '[path][name].[ext]',
+            //                 // outputPath: "images/"
+            //             }
+            //         }
+            //     ]
+            // },
+
+            // {
+            //     test: /\.(png|jpe?g|gif)$/i,
+            //     loader: 'url-loader',
+            //     options: {
+            //         name: '[path][name].[ext]',
+            //         outputPath: 'images/',
+            //
+            //
+            //         // name: isProduction?'[contenthash].[ext]':'[path][name].[ext]',
+            //         // outputPath: 'images/',
+            //         // limit: 8192
+            //     }
+            // }
             // {
             //     test: /\.css$/,
             //     use: ["style-loader", "css-loader"],
@@ -314,7 +356,7 @@ module.exports = {
         new VueLoaderPlugin(),
 
 
-        ...[].concat(isProduction?[
+        ...[].concat(isBuild||isProduction?[
             new CleanWebpackPlugin({
                 verbose: true,
             }),
@@ -332,7 +374,7 @@ module.exports = {
             // writeToFileEmit:true,
             // fileName: 'manifest.json',
             // publicPath: publicPath,
-            serialize: function(manifest) {
+            serialize1: function(manifest) {
 
                 console.log('\n================');
                 console.log(manifest);
