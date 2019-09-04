@@ -54,9 +54,13 @@
     "webpack-cli": "^3.3.7",
     "webpack-dev-server": "^3.8.0",
     "webpack-manifest-plugin": "^2.0.4",
+    "webpack-merge": "^4.2.2",
     "webpack-mode": "^1.0.1"
   },
   "scripts": {
+    "d": "node-nightly --inspect --inspect-brk ./server.js",
+
+
     "debugger": "node-nightly --inspect --debug-brk ./node_modules/webpack/bin/webpack.js --inline --progress --mode=none --config config/webpack.config.js",
     "create": "node ./config/create.js",
     "dll": "cross-env NODE_ENV=development webpack --mode=none --config config/webpack.config.dll.js",
@@ -64,7 +68,7 @@
     "dev:ie": "cross-env NODE_ENV=development BROWSER=ie webpack-dev-server --progress --mode=none --config config/webpack.config.js",
     "build:dev": "webpack --mode=development --config=config/webpack.config.js",
     "build": "cross-env NODE_ENV=build webpack --mode=none --config config/webpack.config.js",
-    "production": "cross-env NODE_ENV=production webpack --progress --mode=production --config config/webpack.config.js",
+    "production": "cross-env NODE_ENV=production webpack --progress --mode=production --config webpack.config.js",
     "production:cache": "cross-env NODE_ENV=production CACHE=true webpack --mode=production --config config/webpack.config.js"
   },
   "dependencies": {

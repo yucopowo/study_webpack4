@@ -9,57 +9,25 @@ const AutoDllPlugin = require('autodll-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const webpack = require('webpack');
 // const { isDevelopment, isProduction } = require('webpack-mode');
-const config = require('./config.js');
+const config = require('./config/config.js');
 
 const isDevelopment = (process.env.NODE_ENV === 'development');
 const isProduction = (process.env.NODE_ENV === 'production');
 const isBuild = (process.env.NODE_ENV === 'build');
 const cache = (process.env.CACHE === 'true');
 
-
 function base() {
     const args = Array.prototype.slice.call(arguments);
-    return path.resolve.apply(null, [__dirname, '../'].concat(args));
-}
-function _path() {
-    const args = Array.prototype.slice.call(arguments);
-    args.unshift(__dirname);
-    return path.resolve.apply(null, args);
-}
-function recursiveIssuer(m) {
-    if (m.issuer) {
-        return recursiveIssuer(m.issuer);
-    } else if (m.name) {
-        return m.name;
-    } else {
-        return false;
-    }
+    return path.resolve.apply(null, [__dirname, './'].concat(args));
 }
 
-// const seed = {};
-// const generate = (_, files) => files.reduce((_, { name, path }) => {
-//     // modify the shared seed object, so as to share it between the main and
-//     // DLL compiler instance
-//     console.log(name, path);
-//
-//     seed[name] = path;
-//     return seed;
-// });
-console.log('config.entry');
-
-console.log(config.entry);
-
-const publicPath = '';
-// const publicPath = 'http://127.0.0.1:8080/';
 module.exports = {
     mode: 'development',
-    entry: config.entry,
     output: {
         path: base('dist'),
         filename: isProduction?'[name].[contenthash].js':'[name].js',
         chunkFilename: isProduction?'[name].[contenthash].chunk.js':'[name].chunk.js'
     },
-    devServer: require('./server'),
     module: {
         noParse: [/.elm$/],
         rules: [
@@ -287,17 +255,6 @@ module.exports = {
             // }
         ]
     },
-
-    // externals: {
-    //     'vue': 'Vue',
-    //     'react': 'React',
-    //     'lodash': '_',
-    // },
-
-    // externals: {
-    //     'react': 'React'
-    // },
-
     resolve: {
         alias: {
             '@images': base('assets/images'),
@@ -451,75 +408,75 @@ module.exports = {
 
         ]:[]),
 
-        new AutoDllPlugin({
-            // debug: true,
-            // filename: '[name].dll.js',
-            filename: isProduction?'[name].[contenthash].js':'[name].js',
-            // path: base('../cache'),
-            // path: './dll',
-            entry: config.dll || {
-                // detail: ['axios'],
-
-                // detail_
-
-                // vendor: [
-                //     'axios'
-                //     // 'react',
-                //     // 'react-dom'
-                // ]
-            },
-            inherit: true,
-            // webpack: {
-            //     module: {
-            //         rules: [
-            //             {
-            //                 test: /\.(sa|sc|c)ss$/i,
-            //                 use: [
-            //                     isDevelopment?'vue-style-loader':MiniCssExtractPlugin.loader,
-            //                     {
-            //                         loader: 'css-loader',
-            //                         options: {
-            //                             importLoaders: 1,
-            //                         }
-            //                     },
-            //                     'postcss-loader',
-            //                     'sass-loader',
-            //                 ],
-            //             }
-            //         ]
-            //     },
-            // },
-
-
-            plugins: [
-
-
-                new MiniCssExtractPlugin({
-                    filename: isProduction?'[name].[contenthash].css':'[name].css',
-                    chunkFilename: isProduction?'[name].[contenthash].chunk.css':'[name].chunk.css',
-                    ignoreOrder: false
-                }),
-
-                // new ManifestPlugin({
-                //     // generate,
-                //     // seed
-                //     // serialize: (manifest) => JSON.stringify(manifest, null, 4)
-                //
-                //     serialize: function(manifest) {
-                //
-                //         console.log('================');
-                //
-                //
-                //         return JSON.stringify(manifest, null, 2);
-                //     },
-                //
-                // }),
-
-
-
-
-            ]
-        })
+        // new AutoDllPlugin({
+        //     // debug: true,
+        //     // filename: '[name].dll.js',
+        //     filename: isProduction?'[name].[contenthash].js':'[name].js',
+        //     // path: base('../cache'),
+        //     // path: './dll',
+        //     entry: config.dll || {
+        //         // detail: ['axios'],
+        //
+        //         // detail_
+        //
+        //         // vendor: [
+        //         //     'axios'
+        //         //     // 'react',
+        //         //     // 'react-dom'
+        //         // ]
+        //     },
+        //     inherit: true,
+        //     // webpack: {
+        //     //     module: {
+        //     //         rules: [
+        //     //             {
+        //     //                 test: /\.(sa|sc|c)ss$/i,
+        //     //                 use: [
+        //     //                     isDevelopment?'vue-style-loader':MiniCssExtractPlugin.loader,
+        //     //                     {
+        //     //                         loader: 'css-loader',
+        //     //                         options: {
+        //     //                             importLoaders: 1,
+        //     //                         }
+        //     //                     },
+        //     //                     'postcss-loader',
+        //     //                     'sass-loader',
+        //     //                 ],
+        //     //             }
+        //     //         ]
+        //     //     },
+        //     // },
+        //
+        //
+        //     plugins: [
+        //
+        //
+        //         new MiniCssExtractPlugin({
+        //             filename: isProduction?'[name].[contenthash].css':'[name].css',
+        //             chunkFilename: isProduction?'[name].[contenthash].chunk.css':'[name].chunk.css',
+        //             ignoreOrder: false
+        //         }),
+        //
+        //         // new ManifestPlugin({
+        //         //     // generate,
+        //         //     // seed
+        //         //     // serialize: (manifest) => JSON.stringify(manifest, null, 4)
+        //         //
+        //         //     serialize: function(manifest) {
+        //         //
+        //         //         console.log('================');
+        //         //
+        //         //
+        //         //         return JSON.stringify(manifest, null, 2);
+        //         //     },
+        //         //
+        //         // }),
+        //
+        //
+        //
+        //
+        //     ]
+        // })
 
 
 

@@ -1,0 +1,33 @@
+<head>
+    {{> header}}
+
+
+    <!--{{#manifest.vendor}}-->
+        <!--<link rel="stylesheet" href="{{simple_vendor}}">-->
+    <!--{{/manifest.vendor}}-->
+    <!--{{#manifest.bundle}}-->
+        <!--<link rel="stylesheet" href="{{simple_bundle}}">-->
+    <!--{{/manifest.bundle}}-->
+</head>
+
+<body>
+
+<div id="root"></div>
+
+<div id="main" style="width: 600px;height:400px;margin: 0 auto;"></div>
+
+
+{{#manifest.vendor}}
+    <script src="{{echarts}}"></script>
+    <script src="{{vue}}"></script>
+    <script src="{{simple}}"></script>
+    <script src="{{element_ui}}"></script>
+{{/manifest.vendor}}
+{{#manifest.bundle}}
+    <script src="{{simple}}"></script>
+{{/manifest.bundle}}
+
+</body>
+
+
+
