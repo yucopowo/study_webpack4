@@ -9,11 +9,14 @@ Vue.use(VueRouter);
 import Vuex from 'vuex'
 Vue.use(Vuex);
 
-import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
+
+import ElementUI from 'element-ui';
 Vue.use(ElementUI);
 
 import echarts from 'echarts';
+
+import './index.scss';
 
 new Vue({
     el: '#root',
@@ -21,7 +24,7 @@ new Vue({
 
         return h('div', {}, [
 
-            h('el-button',{}, '=====1333')
+            h('el-button',{}, '=====9')
 
         ]);
 

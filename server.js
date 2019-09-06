@@ -162,7 +162,9 @@ function vendor(entry) {
 
     const vendor_manifest = {};
     const pages = [
-        require('./mock/pages/demo_test/page')
+        require('./mock/pages/demo_test/page'),
+        require('./mock/pages/simple/page')
+
     ];
 
     const entry = {
@@ -285,8 +287,11 @@ function vendor(entry) {
         // lazy: true,
         // filename: "simple.bundle.js",
 
-        hot: false,
-        inline: false,
+        // hot: false,
+        // inline: false,
+        hot: true,
+        inline: true,
+
 
         host: '0.0.0.0',
         contentBase: [
