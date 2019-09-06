@@ -1,3 +1,9 @@
+<head>
+    {{> header}}
+</head>
+
+<body>
+
 <ul>
 
     <li>
@@ -9,3 +15,12 @@
         </li>
     {{/pages}}
 </ul>
+
+{{#manifest.bundle}}
+    <script src="{{index}}"></script>
+{{/manifest.bundle}}
+
+</body>
+
+
+

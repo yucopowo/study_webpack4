@@ -1,8 +1,9 @@
 const path = require('path');
-module.exports = function (__basename) {
+module.exports = function () {
+    const args0 = Array.prototype.slice.call(arguments);
     return function () {
-        const args = Array.prototype.slice.call(arguments);
-        return path.resolve.apply(null, [__basename].concat(args));
+        const args1 = Array.prototype.slice.call(arguments);
+        return path.join.apply(null, [].concat(args0).concat(args1));
     }
 };
 

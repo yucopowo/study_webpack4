@@ -1,0 +1,22 @@
+<head>
+    {{> header}}
+
+</head>
+
+<body>
+
+<div id="root"></div>
+
+<div>{{json manifest}}</div>
+
+{{#manifest.vendor}}
+<script src="{{demo_test_vendor}}"></script>
+{{/manifest.vendor}}
+{{#manifest.bundle}}
+<script src="{{demo_test_bundle}}"></script>
+{{/manifest.bundle}}
+
+</body>
+
+
+
